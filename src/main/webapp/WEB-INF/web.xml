@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+
+<servlet>
+	<servlet-name>RegisterUserServlet</servlet-name>
+	<servlet-class>sps_website.control.RegisterServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>RegisterUserServlet</servlet-name>
+	<url-pattern>/webpages/registeruser</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>LoginUserServlet</servlet-name>
+	<servlet-class>sps_website.control.LoginServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>LoginUserServlet</servlet-name>
+	<url-pattern>/webpages/loginuser</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>LogoutServlet</servlet-name>
+	<servlet-class>sps_website.control.LogoutServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>LogoutServlet</servlet-name>
+	<url-pattern>/webpages/logoutuser</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>GetMyCourseServlet</servlet-name>
+	<servlet-class>sps_website.control.getMyCourseServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>GetMyCourseServlet</servlet-name>
+	<url-pattern>/webpages/getMyCourse</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>AddCourseServlet</servlet-name>
+	<servlet-class>sps_website.control.InsertCourseServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>AddCourseServlet</servlet-name>
+	<url-pattern>/webpages/insertCourse</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>CourseDetailsServlet</servlet-name>
+	<servlet-class>sps_website.control.CourseDetailServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>CourseDetailsServlet</servlet-name>
+	<url-pattern>/webpages/courseDetails</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>AttendanceChartServlet</servlet-name>
+	<servlet-class>sps_website.control.CourseAttendanceChartServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>AttendanceChartServlet</servlet-name>
+	<url-pattern>/webpages/courseAttendanceChart</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>MyCollegeServlet</servlet-name>
+	<servlet-class>sps_website.control.getMyCollegeServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>MyCollegeServlet</servlet-name>
+	<url-pattern>/webpages/myCollege</url-pattern>
+</servlet-mapping>
+
+</web-app>

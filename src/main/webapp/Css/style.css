@@ -1,0 +1,289 @@
+@font-face {
+    src: url("./poppins.ttf");
+    font-family: "Poppins";
+}
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: "Poppins";
+}
+
+nav .logo{
+    display: none;
+}
+
+#blanker{
+    transition: 8ms;
+    opacity: 100%;
+}
+
+body{
+    background: #e3e9f7;
+}
+header{
+    width:80%;
+    height: 70px;
+    background: #fefefe;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    border-radius: 0 0 10px 10px;
+    margin: 0 auto;
+    box-shadow: 2px 0 20px 0 rgba(0,0,0,0.05);
+    
+}
+
+
+
+nav ul{
+    display: flex;
+}
+
+nav ul li a{
+    color:#212526;
+    display:block;
+    margin:0 2px;
+    font-weight: 600;
+    padding:8px 18px;
+    transition:0.2s;
+    border-radius: 30px;
+}
+
+nav ul li a:hover{
+    background: #f6f4ff;
+}
+
+nav ul li a.active{
+    background: #675cff;
+    color:#fff;
+}
+
+.hamburger{
+    display: none;
+    height: fit-content;
+    cursor:pointer;
+    padding:3px 8px;
+    border-radius:5px;
+    transition: 0.2s;
+}
+
+.hamburger:hover{
+    background: #f6f4ff;
+}
+
+.hamburger div{
+    width:30px;
+    height: 2px;
+    margin: 6px 0;
+    background: #212526;
+}
+
+.mycourse{
+    background: #e4e2ff;
+    width:80%;
+    margin: 0 auto;
+    border-radius: 30px;
+    transition: all 150ms ease;
+    box-shadow: none;
+    margin-top: 24px;
+    text-align: center;
+}
+
+.mycourse h2{
+    padding: 12px;
+}
+
+.mycourse table{
+    width: 100%;
+    padding: 0 10px;
+    text-align: center;
+    border-collapse: collapse;
+    
+    
+}
+
+.mycourse:hover{
+    box-shadow: 0 8px 32px 0 rgb(143, 143, 196);
+}
+
+.mycourse table tbody td{
+    height: 2.8rem;
+    /* border-bottom: 1px solid rgb(71, 16, 122); */
+    padding: 3%;
+}
+
+button{
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor:pointer;
+    font-size: 16px;
+    letter-spacing: 2px;
+    padding: 12px 36px;
+    background: linear-gradient(90deg,#9480ed,#d0aaf9);
+    color: #fff;
+    border-radius: 40px;
+    display: inline-block;
+    margin: 10px 0px;
+    border: none;
+    box-shadow: 0 3px 10px -3px #5b809f;
+
+}
+
+.center{
+    position: absolute;
+    top:-140%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    
+    transition: 0.2s;
+    
+}
+
+.popup{
+    background: #fff;
+    padding: 20px 30px;
+    box-shadow: 2px 2px 5px 5px rgba(0,0,0,0.15);
+    width: 100%;
+    border-radius: 8px;
+
+    
+}
+
+
+.popup .close-btn{
+    position: absolute;
+    top:8px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.popup .form h2{
+    text-align: center;
+    margin: 10px 0px 20px;
+}
+
+.popup .form .form-element{
+    margin: 15px 0px;
+}
+
+.popup .form .form-element input[type="text"]{
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    padding: 8px;
+    outline: none;
+    border-radius: 5px;
+    border:1px solid #aaa;
+}
+
+.popup .form .form-element textarea{
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    padding: 8px;
+    outline: none;
+    border-radius: 5px;
+    border:1px solid #aaa;
+}
+
+
+
+.card{
+    /* height: 320px; */
+    width: 240px;
+    background: #fefefe;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items:start;
+    margin: auto;
+    padding: 16px;
+    margin-top: 16px;
+    border-radius: 16px;
+    
+    
+}
+
+.card-item{
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-item label{
+    font-size: 16px;
+}
+
+h2{
+    font-size: 32px;
+}
+
+
+
+@media only screen and (max-width:1230px){
+
+    header{
+        width:90%;
+        padding:0 20px;
+    }
+    nav{
+        position: absolute;
+        left:-300px;
+        top:0;
+        z-index: 999;
+        width:280px;
+        height:100vh;
+        background-color: #fefefe;
+        transition: 0.2s;
+        box-shadow: 2px 0 20px 0 rgba(0,0,0,0.05);
+    }
+
+    #nav_check:checked ~ nav{
+        left:0;
+    }
+
+    nav .logo{
+        display: block;
+        display: flex;
+        align-items: center;
+        margin-left: 30px;
+        margin-top: 30px;
+    }
+
+    nav ul li a{
+        margin-bottom:5px;
+        padding:10px 15px;
+
+    }
+
+    nav ul{
+        display: block;
+        padding: 0 20px;
+        margin-top:30px;
+    }
+
+    .hamburger{
+        display: block;
+    }
+
+    .mycourse {
+        width:100%;
+        border-radius: 0;
+    }
+
+    .mycourse table{
+        width: 80%;
+        margin: 0 auto;
+    }
+
+
+}
