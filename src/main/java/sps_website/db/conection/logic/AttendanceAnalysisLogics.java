@@ -33,52 +33,7 @@ public class AttendanceAnalysisLogics {
 		return totalModel;
 		
 	}
-	
-	public static AttendanceModel getHighestAttendance(int Month,int Year,int courseId,AttendanceModel model) {
-		AttendanceModel highAttendance = model;
-		try {
-			Connection con = EstablishConnection.getConnection();
-			String query = "select count(distinct attendance_date) as highest from attendance where month(attendance_date)=? and year(attendance_date)=? and status=1 and course_id=?;";
-			PreparedStatement pst = con.prepareStatement(query);
-			pst.setInt(1,Month);
-			pst.setInt(2,Year);
-			pst.setInt(3, courseId);
-			ResultSet set =pst.executeQuery();
-			while(set.next()) {
-				model.setHighestPresentMonth(set.getInt("highest"));
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return highAttendance;
-	}
-	
-	public static AttendanceModel getLowestAttendance(int Month,int Year,int courseId,AttendanceModel model) {
-		AttendanceModel lowAttendance = model;
-		try {
-			Connection con = EstablishConnection.getConnection();
-			String query = "select count(distinct attendance_date) as lowest from attendance where month(attendance_date)=? and year(attendance_date)=? and status=1 and course_id=? group by attendance_date order by lowest asc limit 1";
-			PreparedStatement pst = con.prepareStatement(query);
-			pst.setInt(1,Month);
-			pst.setInt(2,Year);
-			pst.setInt(3, courseId);
-			ResultSet set =pst.executeQuery();
-			while(set.next()) {
-				model.setLowestPresentMonth(set.getInt("lowest"));
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return lowAttendance;
-	}
+
 	
 	
 	public static List<AttendanceChartModel> getAttendanceChartData(int Month,int Year,int courseId) {
@@ -120,5 +75,129 @@ public class AttendanceAnalysisLogics {
 		
 		return modelCollection;
 		
+	}
+	
+	public static AttendanceModel getStudentAttendanceAnalysis(int courseId,int Month,int Year,AttendanceModel passedModel) {
+		AttendanceModel model = passedModel;
+		try {
+			Connection con = EstablishConnection.getConnection();
+			String query = "select s.student_id,s.name,count(a.student_id) as present_count from student s left join attendance a on s.student_id=a.student_id and a.status=1 where s.course_id=? and month(a.attendance_date)=? and year(a.attendance_date)=? group by s.student_id,s.name order by present_count desc";
+			PreparedStatement pst =con.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			pst.setInt(1,courseId);
+			pst.setInt(2,Month);
+			pst.setInt(3, Year);
+			ResultSet set = pst.executeQuery();
+			
+			while(set.next()) {
+				String highPresentName = set.getString("name");
+				int highPresentId = set.getInt("student_id");
+				int highPresentCount = set.getInt("present_count");
+				
+				System.out.println("nameH:"+highPresentName);
+				set.last();
+				
+				String lowPresentName = set.getString("name");
+				int lowPresentId = set.getInt("student_id");
+				int lowPresentCount = set.getInt("present_count");
+				System.out.println("nameL:"+lowPresentName);
+				
+				model.setHighPresentName(highPresentName);
+				model.setHighPresentId(highPresentId);
+				model.setHighPresentCount(highPresentCount);
+				
+				model.setLowPresentName(lowPresentName);
+				model.setLowPresentId(lowPresentId);
+				model.setLowPresentCount(lowPresentCount);
+				
+				
+				
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return model;
+	}
+	
+	public static AttendanceModel getAllTimeAnalysis(int courseId,int Month,int Year,AttendanceModel passedModel) {
+		AttendanceModel model = passedModel;
+		try {
+			Connection con = EstablishConnection.getConnection();
+			String query = "select s.student_id,s.name,count(a.student_id) as present_count from student s left join attendance a on s.student_id=a.student_id and a.status=1 where s.course_id=? group by s.student_id,s.name order by present_count desc";
+			PreparedStatement pst =con.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			pst.setInt(1,courseId);
+			
+			ResultSet set = pst.executeQuery();
+			
+			while(set.next()) {
+				String highPresentName = set.getString("name");
+				int highPresentId = set.getInt("student_id");
+				int highPresentCount = set.getInt("present_count");
+				
+				System.out.println("nameH:"+highPresentName);
+				set.last();
+				
+				String lowPresentName = set.getString("name");
+				int lowPresentId = set.getInt("student_id");
+				int lowPresentCount = set.getInt("present_count");
+				System.out.println("nameL:"+lowPresentName);
+				
+				model.setAllTimeHighName(highPresentName);
+				model.setAllTimeHighId(highPresentId);
+				model.setAllTimeHighCount(highPresentCount);
+				
+				model.setAllTimeLowName(lowPresentName);
+				model.setAllTimeLowId(lowPresentId);
+				model.setAllTimeLowCount(lowPresentCount);
+				
+				
+				
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return model;
+	}
+	
+	public static AttendanceModel getTotalClassDays(int courseId,AttendanceModel passedModel) {
+		AttendanceModel model = passedModel;
+		try {
+			Connection con = EstablishConnection.getConnection();
+			String query = "select count(distinct attendance_date) as total_class_days from attendance where course_id=?";
+			PreparedStatement pst =con.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			pst.setInt(1,courseId);
+			
+			ResultSet set = pst.executeQuery();
+			
+			while(set.next()) {
+				
+				int totalClass = set.getInt("total_class_days");
+				
+				model.setTotalClassDays(totalClass);
+				
+				
+				
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return model;
 	}
 }

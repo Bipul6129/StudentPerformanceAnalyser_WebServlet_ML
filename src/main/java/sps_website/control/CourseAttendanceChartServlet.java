@@ -19,6 +19,8 @@ public class CourseAttendanceChartServlet extends HttpServlet{
 		
 		List<AttendanceChartModel> modelCollection = AttendanceAnalysisLogics.getAttendanceChartData(month, year, courseId);
 		
+		
+		
 		Gson gson = new Gson();
 		String modelLists = gson.toJson(modelCollection);
 		
