@@ -27,46 +27,57 @@ $(document).ready(function(){
 	$("#insertCourseForm").submit(function(event){
 		
 		event.preventDefault();
-		var formData = $(this).serialize();
-		$.ajax({
-			url:'insertCourse',
-			type:'post',
-			data:formData,
-			success:function(response){
-				console.log(response);
-				$("#tableBody").empty();
-				getMyCourses();
-				if(response.message=="inserted"){
-					popdown();
-					Swal.fire(
-							  'Course Added Successfully',
-							  'You have sucessfully added new course',
-							  'success'
-							)
-				}else if(response.message=="notinserted"){
-					popdown();
+		if($("#courseName").val()==""||$("#courseFaculty").val()==""||$("#courseSemester").val()==""||$("#collegeDropBox").val()==null){
+			Swal.fire({
+				  icon: 'error',
+				  title: 'Oops...',
+				  text: 'Insertion failed',
+				  footer: ''
+				})
+		}else{
+			console.log('entered');
+			var formData = $(this).serialize();
+			$.ajax({
+				url:'myCourse',
+				type:'post',
+				data:formData,
+				success:function(response){
+					console.log(response);
+					$("#tableBody").empty();
+					getMyCourses();
+					if(response.message=="inserted"){
+						popdown();
+						Swal.fire(
+								  'Course Added Successfully',
+								  'You have sucessfully added new course',
+								  'success'
+								)
+					}else if(response.message=="notinserted"){
+						popdown();
+						Swal.fire({
+							  icon: 'error',
+							  title: 'Oops...',
+							  text: 'Insertion failed',
+							  footer: ''
+							})
+					}
+				},
+				error:function(xhr,status,error){
 					Swal.fire({
 						  icon: 'error',
 						  title: 'Oops...',
-						  text: 'Insertion failed',
+						  text: 'Connection Error?',
 						  footer: ''
 						})
 				}
-			},
-			error:function(xhr,status,error){
-				Swal.fire({
-					  icon: 'error',
-					  title: 'Oops...',
-					  text: 'Connection Error?',
-					  footer: ''
-					})
-			}
-		})
+			})
+		}
+		
 	})
 	
 	function getMyCourses(){
 		$.ajax({
-    		url:'getMyCourse',
+    		url:'myCourse',
     		type:'get',
     		dataType:'json',
     		headers:{'userid':userId},

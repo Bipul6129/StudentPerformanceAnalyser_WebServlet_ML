@@ -50,6 +50,10 @@
                 </li>
                 
                 <li>
+                	<a href="AddCollege.jsp">Colleges</a>
+                </li>
+                
+                <li>
                     <a href="/sps_website/webpages/logoutuser" class="">Logout</a>
                 </li>
 

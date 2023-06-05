@@ -30,25 +30,6 @@
 	<url-pattern>/webpages/logoutuser</url-pattern>
 </servlet-mapping>
 
-<servlet>
-	<servlet-name>GetMyCourseServlet</servlet-name>
-	<servlet-class>sps_website.control.getMyCourseServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-	<servlet-name>GetMyCourseServlet</servlet-name>
-	<url-pattern>/webpages/getMyCourse</url-pattern>
-</servlet-mapping>
-
-
-<servlet>
-	<servlet-name>AddCourseServlet</servlet-name>
-	<servlet-class>sps_website.control.InsertCourseServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-	<servlet-name>AddCourseServlet</servlet-name>
-	<url-pattern>/webpages/insertCourse</url-pattern>
-</servlet-mapping>
-
 
 <servlet>
 	<servlet-name>CourseDetailsServlet</servlet-name>
@@ -70,9 +51,20 @@
 </servlet-mapping>
 
 
+
+<servlet>
+	<servlet-name>MyCourseServlet</servlet-name>
+	<servlet-class>sps_website.control.MyCourseServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>MyCourseServlet</servlet-name>
+	<url-pattern>/webpages/myCourse</url-pattern>
+</servlet-mapping>
+
+
 <servlet>
 	<servlet-name>MyCollegeServlet</servlet-name>
-	<servlet-class>sps_website.control.getMyCollegeServlet</servlet-class>
+	<servlet-class>sps_website.control.MyCollegeServlet</servlet-class>
 </servlet>
 <servlet-mapping>
 	<servlet-name>MyCollegeServlet</servlet-name>

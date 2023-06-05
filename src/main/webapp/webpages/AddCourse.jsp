@@ -41,15 +41,15 @@
 	                <form id="insertCourseForm">
 		                <div class="form-element">
 		                    <label for="coursename">CourseName</label>
-		                    <input type="text" name="courseName" placeholder="Enter new COurseName"/>
+		                    <input type="text" name="courseName" id="courseName" placeholder="Enter new COurseName"/>
 		                </div>
 		                <div class="form-element">
 		                    <label for="faculty">Faculty</label>
-		                    <input type="text" name="courseFaculty" placeholder="Enter faculty"/>
+		                    <input type="text" name="courseFaculty" id="courseFaculty" placeholder="Enter faculty"/>
 		                </div>
 		                <div class="form-element">
 		                    <label for="semester">Semester</label>
-		                    <input type="text" name="courseSemester" placeholder="Enter semester"/>
+		                    <input type="text" name="courseSemester" id="courseSemester" placeholder="Enter semester"/>
 		                </div>
 		                <div class="form-element">
 		                    <label for="semester">College Name</label>

@@ -1,10 +1,16 @@
 package sps_website.db.conection.logic;
-import sps_website.control.*;
-import java.sql.*;
-import sps_website.model.*;
-import sps_website.db.conection.*;
-import java.util.*;
-public class getMyCollegeLogics {
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import sps_website.db.conection.EstablishConnection;
+import sps_website.model.MyCollegeModel;
+
+public class CollegeLogics {
 	public static List<MyCollegeModel> getMyCollege(int userId) throws ClassNotFoundException, SQLException{
 		
 		List<MyCollegeModel> collegeCollection = new ArrayList<>();

@@ -10,6 +10,8 @@ public class LogoutServlet extends HttpServlet{
 		if(session.getAttribute("user")!=null) {
 			session.invalidate();
 			res.sendRedirect("LoginPage.jsp");
+		}else {
+			res.sendRedirect("LoginPage.jsp");
 		}
 	}
 }
