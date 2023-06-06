@@ -23,6 +23,7 @@ nav .logo{
 
 body{
     background: #e3e9f7;
+
 }
 header{
     width:80%;
@@ -92,6 +93,8 @@ nav ul li a.active{
     box-shadow: none;
     margin-top: 24px;
     text-align: center;
+    padding-bottom:16px;
+    margin-bottom:32px;
 }
 
 .mycourse h2{
@@ -134,13 +137,36 @@ button{
 
 }
 
+button.successButton{
+    
+    font-size: 14px;
+    letter-spacing:1px;
+    padding: 12px 36px;
+    background: linear-gradient(90deg,#56DE5E,#56DE5E);
+    color: #fff;
+    border-radius:12px;
+    
+
+}
+
+button.dangerButton{
+    
+    font-size: 14px;
+    letter-spacing:1px;
+    padding: 12px 36px;
+    background: linear-gradient(90deg,#C78986,#C78986);
+    color: #fff;
+    border-radius:12px;
+    
+
+}
+
 .center{
     position: absolute;
     top:-140%;
     left: 50%;
     transform: translate(-50%,-50%);
     width: 400px;
-    
     transition: 0.2s;
     
 }

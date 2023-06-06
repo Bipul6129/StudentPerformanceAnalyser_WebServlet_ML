@@ -35,14 +35,14 @@
 	            <div class="close-btn">&times;</div>
 	            <div class="form">
 	                <h2>Add New College</h2>
-	                <form id="insertCourseForm">
+	                <form id="insertCollegeForm">
 		                <div class="form-element">
 		                    <label for="coursename">CollegeName</label>
-		                    <input type="text" name="courseName" placeholder="Enter new College Name"/>
+		                    <input type="text" id="collegeName" name="collegeName" placeholder="Enter new College Name"/>
 		                </div>
 		                <div class="form-element">
 		                    <label for="faculty">Location</label>
-		                    <input type="text" name="courseFaculty" placeholder="Enter College Location"/>
+		                    <input type="text" id="collegeLocation" name="collegeLocation" placeholder="Enter College Location"/>
 		                </div>
 		                
 		                <button type="submit">Save</button>
@@ -54,68 +54,9 @@
 	    </div>
 	</div>
 	
-	<script>
-		document.querySelector("#addcourse").addEventListener("click",function(){
-		    
-		    document.querySelector(".center").style.top="50%"
-		    document.querySelector("#blanker").style.opacity="40%"
-		});
-		document.querySelector(".close-btn").addEventListener("click",function(){
-		    
-		    document.querySelector(".center").style.top="-140%"
-		    document.querySelector("#blanker").style.opacity="100%"
-		});
+	<script src="js/addCollegeJS.js">
+	
 		
-		$(document).ready(function(){
-			loadColleges();
-			function loadColleges(){
-				$.ajax({
-					url:'myCollege',
-					method:'get',
-					dataType:'json',
-					success:function(response){
-						console.log(response)
-						j=0;
-						for(i=0;i<response.length;i++){
-							j++;
-							console.log(response[i].CollegeName);
-							$("#tableBody").append("<tr><td>"+j+"</td><td>"+response[i].CollegeName.toUpperCase()+"</td><td>"+response[i].location.charAt(0).toUpperCase()+response[i].location.slice(1)+"</td><td><button class='viewCourse' value='"+response[i].CollegeId+"'>View</button></td></tr>")
-						}
-					},
-					error:function(){
-						
-					}
-				});
-			}
-			
-			$("#tableBody").on("click",".viewCourse",(function(){
-				
-				courseId = $(this).val();
-				console.log(courseId);
-				var lists="";
-				$.ajax({
-					url:'myCourse',
-					method:'get',
-					dataType:'json',
-					success:function(response){
-						console.log(response);
-						for(i=0;i<response.length;i++){
-							if(courseId==response[i].courseCollegeId){
-								console.log(response[i].courseName);
-								lists=lists+"<li>"+response[i].courseName+"</li>"
-							}
-						}
-						Swal.fire('<ol>'+lists+'</ol')
-					},
-					error:function(){
-						
-					}
-				})
-				
-			}));
-			
-			
-		})
 	</script>
     
 </body>

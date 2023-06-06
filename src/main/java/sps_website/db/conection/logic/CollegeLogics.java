@@ -31,4 +31,56 @@ public class CollegeLogics {
 		
 		return collegeCollection;
 	}
+	
+	public static boolean insertCollege(int userId,String collegeName,String location) throws ClassNotFoundException, SQLException {
+		boolean status=false;
+		Connection con = EstablishConnection.getConnection();
+		String query = "insert into college(collegeName,location,user_id) values(?,?,?)";
+		PreparedStatement pst = con.prepareStatement(query);
+		pst.setString(1,collegeName);
+		pst.setString(2,location);
+		pst.setInt(3,userId);
+		
+		int rowAffected = pst.executeUpdate();
+		
+		if(rowAffected>0) {
+			status=true;
+		}
+		
+		return status;
+	}
+	
+	public static boolean deleteCollege(int collegeId) throws ClassNotFoundException, SQLException {
+		boolean status=false;
+		Connection con = EstablishConnection.getConnection();
+		String query = "delete from college where college_id=?";
+		PreparedStatement pst = con.prepareStatement(query);
+		pst.setInt(1,collegeId);
+		
+		int rowAffected = pst.executeUpdate();
+		
+		if(rowAffected>0) {
+			status=true;
+		}
+		
+		return status;
+	}
+	
+	public static boolean Courseexist(int collegeId) throws SQLException, ClassNotFoundException {
+		boolean status=false;
+		Connection con = EstablishConnection.getConnection();
+		String query = "select * from course where college_id=?";
+		PreparedStatement pst = con.prepareStatement(query);
+		pst.setInt(1,collegeId);
+		
+		ResultSet set = pst.executeQuery();
+		
+		if(set.next()) {
+			status=true;
+		}
+		
+		
+		
+		return status;
+	}
 }

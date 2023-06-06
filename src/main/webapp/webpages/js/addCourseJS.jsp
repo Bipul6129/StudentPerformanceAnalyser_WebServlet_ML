@@ -18,11 +18,11 @@ document.querySelector(".close-btn").addEventListener("click",function(){
 });
 
 $(document).ready(function(){
-
 	var userId = <%= currentUser.getUserid() %>;
 	var collegeArray=[];
+	var collegeIdArray=[];
 	getMyCourses();
-	getMyCollege();
+	getMyCollege("#collegeDropBox");
 	
 	$("#insertCourseForm").submit(function(event){
 		
@@ -95,7 +95,8 @@ $(document).ready(function(){
     				}else{
     					status="Completed";
     				}
-    				$("#tableBody").append("<tr> <td>"+(i+1)+"</td> <td>"+response[i].courseName+"</td> <td>"+response[i].courseFaculty+"</td> <td>"+response[i].courseSemester+"</td> <td>"+response[i].courseCollege+"</td><td>"+status+"</td> <td><a href='CourseDetails.jsp?courseId="+response[i].courseId+"'>Details</a></td> </tr>");
+    				
+    				$("#tableBody").append("<tr> <td>"+(i+1)+"</td> <td class='formcourseName'>"+response[i].courseName+"</td> <td>"+response[i].courseFaculty.toUpperCase()+"</td> <td>"+response[i].courseSemester+"</td> <td>"+response[i].courseCollege+"</td><td>"+status+"</td> <td><a href='CourseDetails.jsp?courseId="+response[i].courseId+"'>Details</a></td><td><button class='successButton' data-values='"+response[i].courseId+","+response[i].courseName+","+response[i].courseFaculty+","+response[i].courseSemester+","+response[i].courseCollege+","+response[i].courseStatus+"'>Edit</button></td><td><button class='dangerButton' value='"+response[i].courseId+"'>Remove</button></td> </tr>");
     				
     				
 
@@ -108,7 +109,138 @@ $(document).ready(function(){
     	});
 	}
 	
-	function getMyCollege(){
+	$('#tableBody').on('click','.dangerButton',function(){
+		var courseId = $(this).val();
+		Swal.fire({
+			  title: 'Are you sure?',
+			  text: "You won't be able to revert this!",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Yes, remove it!'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+				const data={
+						courseId:courseId,
+				}
+				const jsonData=JSON.stringify(data);
+				$.ajax({
+					url:'myCourse',
+					type:'delete',
+					data:jsonData,
+					success:function(response){
+						console.log(response)
+						if(response.message=="deleted"){
+							Swal.fire(
+							     'Removed!',
+								 'Your course has been removed.',
+								 'success'
+							)
+							$("#tableBody").empty();
+							getMyCourses();
+							getMyCollege("#collegeDropBox");
+						}else if(response.message=="notdeleted"){
+							Swal.fire({
+								  icon: 'error',
+								  title: 'Oops...',
+								  text: 'Delete failed!',
+								  footer: ''
+								})
+						}
+						
+					},
+					error:function(){
+						console.log('error');
+					}
+					
+				})  
+				  
+			    
+			  }
+			})
+	});
+	
+	$('#tableBody').on('click','.successButton',function(){
+		var courseEdit = $(this).data('values').split(',');
+		var selectLine;
+		if(courseEdit[5]==1){
+			selectLine='Select Status<select id="editStatus" name="status"><option selected value=1>Ongoing</option><option value=0>Completed</option></select>';
+		}else{
+			selectLine='Select Status<select id="editStatus" name="status"><option value=1>Ongoing</option><option selected value=0>Completed</option></select>';
+		}
+		
+		var selectCollege="Select College<select id='editCollege' name='courseCollege'>";		
+		for(j=0;j<collegeArray.length;j++){
+			if(courseEdit[4]==collegeArray[j]){
+				selectCollege=selectCollege+"<option selected value="+collegeIdArray[j]+">"+collegeArray[j]+"</option>";
+			}else{
+				selectCollege=selectCollege+"<option value="+collegeIdArray[j]+">"+collegeArray[j]+"</option>";
+			}
+			
+		}
+		selectCollege=selectCollege+"</select>";
+		
+		
+		
+		Swal.fire({
+		    title: 'Edit Your Course',
+		    html: '<form id="swalForm">'+
+		    	  '<input id="swalCourseId" type="hidden" value="'+courseEdit[0]+'"/>'+
+		    	  '<input type="text" name="courseName" placeholder="CourseName" value="'+courseEdit[1]+'" id="editCourseName" class="swal2-input">' +
+		          '<input type="text" name="faculty" placeholder="Faculty" id="editFaculty" value="'+courseEdit[2]+'" class="swal2-input">'+
+		          '<input type="text" name="semester" placeholder="Semester" id="editSemester" value="'+courseEdit[3]+'" class="swal2-input"><br>'+
+		          selectCollege+'<br>'+
+		          selectLine+'</form>',
+		    showCancelButton: true,
+		    confirmButtonText: 'SAVE',
+		    preConfirm: function () {
+		      var courseId = document.getElementById('swalCourseId').value;
+		      var courseName = document.getElementById('editCourseName').value;
+		      var faculty = document.getElementById('editFaculty').value;
+		      var semester = document.getElementById('editSemester').value;
+		      var courseCollege = document.getElementById('editCollege').value;
+		      var courseStatus = document.getElementById('editStatus').value;
+		      if (!courseName || !faculty || !editSemester) {
+		        Swal.showValidationMessage('Please fill in all fields');
+		      }
+		      return {courseId:courseId, courseName: courseName, faculty:faculty,semester:semester,courseCollege:courseCollege,courseStatus:courseStatus};
+		    }
+		  }).then(function (result) {
+		    if (result.isConfirmed) {
+			 console.log(result.value.courseStatus+" is status");
+			 const data={
+					 courseId:result.value.courseId,
+					 courseName:result.value.courseName,
+					 faculty:result.value.faculty,
+					 semester:result.value.semester,
+					 college:result.value.courseCollege,
+					 status:result.value.courseStatus
+			 }
+			 const jsonData = JSON.stringify(data);
+		      $.ajax({
+		    	  url:'myCourse',
+		    	  method:'put',
+				  data:jsonData,
+		    	  success:function(response){
+		    		  console.log("success");
+		    		  $("#tableBody").empty();
+		    		  getMyCourses();
+		    		  getMyCollege("#collegeDropBox");
+		    	  },
+		    	  error:function(){
+		    		  
+		    	  }
+		      });
+		      // You can perform further actions with the form data, such as sending it to a server or processing it.
+		    }
+		  });
+	})
+	
+	
+	function getMyCollege(selectId){
+		
+		
 		$.ajax({
 			url:'myCollege',
 			method:'get',
@@ -122,11 +254,12 @@ $(document).ready(function(){
 						console.log("college exists");
 					}else{
 						
-						$("#collegeDropBox").append("<option value='"+response[i].CollegeId+"'>"+response[i].CollegeName+"</option>");
+						$(selectId).append("<option value='"+response[i].CollegeId+"'>"+response[i].CollegeName+"</option>");
 						collegeArray.push(response[i].CollegeName);
+						collegeIdArray.push(response[i].CollegeId);
 					}
 				}
-				
+			
 			},
 			error:function(xhr,status,error){
 				console.log(error);
@@ -136,10 +269,15 @@ $(document).ready(function(){
 	
 	
 	
+	
 	function itemExists(item){
 		return collegeArray.indexOf(item) !== -1;
 	}
 })
+
+	function showForm() {
+	  
+	}
 
 
 </script>

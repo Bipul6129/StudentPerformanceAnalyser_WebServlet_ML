@@ -1,5 +1,6 @@
 package sps_website.control;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -8,8 +9,10 @@ import java.util.List;
 import javax.servlet.http.*;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import sps_website.db.conection.logic.CourseLogics;
+import sps_website.db.conection.logic.ReturnJsonObject;
 import sps_website.model.CourseModel;
 import sps_website.model.UserModel;
 
@@ -59,6 +62,51 @@ public class MyCourseServlet extends HttpServlet{
 			out.flush();
 		}
 		
+		
+	}
+	
+	public void doPut(HttpServletRequest req,HttpServletResponse res) throws IOException{
+	
+		JsonObject jsonData =ReturnJsonObject.returnJObject(req);
+		
+		int courseId = jsonData.get("courseId").getAsInt();
+		String courseName = jsonData.get("courseName").getAsString();
+		String faculty = jsonData.get("faculty").getAsString();
+		String semester = jsonData.get("semester").getAsString();
+		int collegeId = jsonData.get("college").getAsInt();
+		int status = jsonData.get("status").getAsInt();
+		
+		System.out.println(courseId+" coursename:"+courseName+" faculty:"+faculty+" semester:"+semester+" collegeId:"+collegeId+" status:"+status);
+		
+		boolean Result = CourseLogics.updateCourse(courseName, faculty, semester, collegeId, status, courseId);
+		
+		if(Result) {
+			res.setContentType("text/plain");
+			res.getWriter().write("data updated");
+		}
+		
+	}
+	
+	public void doDelete(HttpServletRequest req,HttpServletResponse res) throws IOException {
+		JsonObject jsonData = ReturnJsonObject.returnJObject(req);
+		
+		int courseId = jsonData.get("courseId").getAsInt();
+		
+		boolean status = CourseLogics.deleteCourse(courseId);
+		
+		if(status) {
+			res.setContentType("app;ication/json");
+			String resData = "{\"message\":\"deleted\"}";
+			PrintWriter out = res.getWriter();
+			out.print(resData);
+			out.flush();
+		}else {
+			res.setContentType("app;ication/json");
+			String resData = "{\"message\":\"notdeleted\"}";
+			PrintWriter out = res.getWriter();
+			out.print(resData);
+			out.flush();
+		}
 		
 	}
 }

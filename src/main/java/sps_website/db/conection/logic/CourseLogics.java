@@ -13,7 +13,7 @@ public class CourseLogics {
 		
 		try {
 			Connection con = EstablishConnection.getConnection();
-			String query = "select course.college_id,course.course_id,course.courseName,course.faculty,course.semester,course.status,college.collegeName from course join college on course.user_id = college.user_id and college.college_id=course.college_id where course.user_id=?;";
+			String query = "select course.college_id,course.course_id,course.courseName,course.faculty,course.semester,course.status,college.collegeName from course join college on course.user_id = college.user_id and college.college_id=course.college_id where course.user_id=? order by course.status desc,course.courseName asc";
 			PreparedStatement pst = con.prepareStatement(query);
 			pst.setInt(1, userId);
 			ResultSet allCourses = pst.executeQuery();
@@ -61,4 +61,51 @@ public class CourseLogics {
 		}
 		return status;
 	}
+	
+	public static boolean updateCourse(String courseName,String faculty,String semester,int collegeId,int course_status,int courseId){
+		boolean status=false;
+		try {
+			Connection con = EstablishConnection.getConnection();
+			String query = "update course set courseName=?,faculty=?,semester=?,college_id=?,status=? where course_id=?";
+			PreparedStatement pst = con.prepareStatement(query);
+			pst.setString(1,courseName);
+			pst.setString(2, faculty);
+			pst.setString(3, semester);
+			pst.setInt(4, collegeId);
+			pst.setInt(5,course_status);
+			pst.setInt(6, courseId);
+			int rowAffected = pst.executeUpdate();
+			
+			if(rowAffected>0) {
+				status=true;
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+	public static boolean deleteCourse(int courseId){
+		boolean status=false;
+		try {
+			Connection con = EstablishConnection.getConnection();
+			String query = "delete from course where course_id=?";
+			PreparedStatement pst = con.prepareStatement(query);
+			pst.setInt(1, courseId);
+			int rowAffected = pst.executeUpdate();
+			
+			if(rowAffected>0) {
+				status=true;
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+	
 }
