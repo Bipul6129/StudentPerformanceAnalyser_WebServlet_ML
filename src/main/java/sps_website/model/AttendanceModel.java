@@ -5,12 +5,19 @@ public class AttendanceModel {
 	private int totalStudents;
 	
 	
-	private String highPresentName;
+	private String highPresentName="";
 	private String lowPresentName;
 	private int highPresentCount;
 	private int lowPresentCount;
 	private int highPresentId;
 	private int lowPresentId;
+	
+	
+
+
+
+
+	private String[] HighPresentArray;
 	
 	private String AllTimeHighName;
 	private String AllTimeLowName;
@@ -19,6 +26,14 @@ public class AttendanceModel {
 	private int allTimeHighId;
 	private int allTimeLowId;
 	private int TotalClassDays;
+	
+	public String[] getHighPresentArray() {
+		return HighPresentArray;
+	}
+
+	public void setHighPresentArray(String[] highPresentArray) {
+		HighPresentArray = highPresentArray;
+	}
 	
 	public int getTotalClassDays() {
 		return TotalClassDays;

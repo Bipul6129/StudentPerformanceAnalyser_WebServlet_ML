@@ -11,7 +11,7 @@
 		<%@ include file="reusable_comp/CheckLogin.jsp" %>
 		<%@ include file = "reusable_comp/NavBar.jsp" %>
 		<div class="mycourse">
-	        <h2>Colleges</h2>
+	        <h2 class="pageHeading">Colleges</h2>
 	        <table>
 	            <thead>
 	                <tr>

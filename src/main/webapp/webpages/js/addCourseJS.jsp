@@ -165,12 +165,12 @@ $(document).ready(function(){
 		var courseEdit = $(this).data('values').split(',');
 		var selectLine;
 		if(courseEdit[5]==1){
-			selectLine='Select Status<select id="editStatus" name="status"><option selected value=1>Ongoing</option><option value=0>Completed</option></select>';
+			selectLine='Select Status<br><select id="editStatus" name="status"><option selected value=1>Ongoing</option><option value=0>Completed</option></select>';
 		}else{
-			selectLine='Select Status<select id="editStatus" name="status"><option value=1>Ongoing</option><option selected value=0>Completed</option></select>';
+			selectLine='Select Status<br><select id="editStatus" name="status"><option value=1>Ongoing</option><option selected value=0>Completed</option></select>';
 		}
 		
-		var selectCollege="Select College<select id='editCollege' name='courseCollege'>";		
+		var selectCollege="Select College<br><select id='editCollege' name='courseCollege'>";		
 		for(j=0;j<collegeArray.length;j++){
 			if(courseEdit[4]==collegeArray[j]){
 				selectCollege=selectCollege+"<option selected value="+collegeIdArray[j]+">"+collegeArray[j]+"</option>";

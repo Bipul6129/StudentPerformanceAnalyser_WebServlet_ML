@@ -54,9 +54,14 @@
                 </li>
                 
                 <li>
+					<a href="StudentOp.jsp">Student</a>
+				</li>
+                
+                <li>
                     <a href="/sps_website/webpages/logoutuser" class="">Logout</a>
                 </li>
-
+				
+				
             </ul>
         </nav>
         <label for="nav_check" class="hamburger">

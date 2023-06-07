@@ -5,13 +5,18 @@
 <head>
 <title>Insert title here</title>
 <%@ include file = "reusable_comp/ImportHeaders.jsp" %>
-
+<style>
+	select{
+		width:17em;
+	}
+</style>
+</head>
 <body>
 	<div id="blanker">
 		<%@ include file="reusable_comp/CheckLogin.jsp" %>
 		<%@ include file = "reusable_comp/NavBar.jsp" %>
 		<div class="mycourse">
-	        <h2>My Course</h2>
+	        <h2 class="pageHeading">My Course</h2>
 	        <table>
 	            <thead>
 	                <tr>

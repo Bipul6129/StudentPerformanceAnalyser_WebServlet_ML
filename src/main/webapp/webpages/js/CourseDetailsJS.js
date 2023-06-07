@@ -4,9 +4,7 @@
 function drawBackgroundColor() {
       
 
-      Attendancedata.addRows([
-        [1,12],[2,22],[3,24],[4,20],[5,15],[6,29],[8,14]
-      ]);
+      
 
       var Testdata = new google.visualization.DataTable();
       Testdata.addColumn('number', 'X');

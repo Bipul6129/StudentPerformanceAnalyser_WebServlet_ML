@@ -71,4 +71,14 @@
 	<url-pattern>/webpages/myCollege</url-pattern>
 </servlet-mapping>
 
+
+<servlet>
+	<servlet-name>MyStudentServlet</servlet-name>
+	<servlet-class>sps_website.control.MyStudentServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>MyStudentServlet</servlet-name>
+	<url-pattern>/webpages/myStudent</url-pattern>
+</servlet-mapping>
+
 </web-app>
