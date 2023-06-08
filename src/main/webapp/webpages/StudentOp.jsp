@@ -29,20 +29,24 @@
         <div class="carpet" style="">
         	<div class="card">
         		<img class="addStudentImg" src="assets/AddStudent.svg"/>
-        		<button class="successButton" onClick="gotoView()">Add Students</button>
+        		<button class="successButton" onClick="gotoAdd()">Add Students</button>
         	</div>
             <div class="card">
             	<img class="addStudentImg" src="assets/seeUser.svg"/>
-            	<button class="dangerButton">View Students</button>
+            	<button class="dangerButton" onClick="gotoView()">View Students</button>
             </div>
             
         </div>
     </div>
     
     <script>
-    	function gotoView(){
+    	function gotoAdd(){
     		window.location.href="AddStudent.jsp";
     	}
+    	function gotoView(){
+    		window.location.href="ViewMyStudent.jsp";
+    	}
+    	
     </script>
 </body>
 </html>
