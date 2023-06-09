@@ -223,7 +223,12 @@ $(document).ready(function(){
 		    	  method:'put',
 				  data:jsonData,
 		    	  success:function(response){
-		    		  console.log("success");
+		    		  
+		    		  Swal.fire(
+							  'Success!',
+							  'You edited the course',
+							  'success'
+							)
 		    		  $("#tableBody").empty();
 		    		  getMyCourses();
 		    		  getMyCollege("#collegeDropBox");

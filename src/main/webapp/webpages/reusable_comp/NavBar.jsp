@@ -56,7 +56,9 @@
                 <li>
 					<a href="StudentOp.jsp">Student</a>
 				</li>
-                
+                <li>
+                	<a href="TestView.jsp">Tests</a>
+                </li>
                 <li>
                     <a href="/sps_website/webpages/logoutuser" class="">Logout</a>
                 </li>

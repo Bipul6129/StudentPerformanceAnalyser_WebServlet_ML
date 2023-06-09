@@ -28,12 +28,21 @@
 				$("#courseHead").empty();
 				
 				var course_id = $("#selectCourse").val();
-				const data = {
+				
+				if(course_id==null){
+					Swal.fire(
+					  'Select a course',
+					  'Tried adding course?',
+					  'question'
+					)
+				}else{
+					const data = {
 						courseId:course_id,
+					}
+					getStudents(data);
 				}
 				
 				
-				getStudents(data);
 				
 			});
 			
