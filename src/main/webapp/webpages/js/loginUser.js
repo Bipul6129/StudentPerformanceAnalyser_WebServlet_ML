@@ -24,7 +24,7 @@ $(document).ready(function(){
     								})
     							$("#loginbtn").show();
         					}else if(response.message=="correct"){
-        						window.location.href="http://localhost:8080/sps_website/webpages/Home.jsp";
+        						window.location.href="Home.jsp";
         					}
         				},
         				error:function(){

@@ -95,7 +95,7 @@
 							getStudents(data);
 							
 						}else if(response.message=="notdeleted"){
-							
+							swal ( "Oops" ,  "Delete failed!" ,  "error" );
 						}
 					},
 					error:function(){

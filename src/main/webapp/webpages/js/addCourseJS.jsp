@@ -113,7 +113,7 @@ $(document).ready(function(){
 		var courseId = $(this).val();
 		Swal.fire({
 			  title: 'Are you sure?',
-			  text: "You won't be able to revert this!",
+			  text: "This will delete all the existing student on this course!",
 			  icon: 'warning',
 			  showCancelButton: true,
 			  confirmButtonColor: '#3085d6',
@@ -141,12 +141,11 @@ $(document).ready(function(){
 							getMyCourses();
 							getMyCollege("#collegeDropBox");
 						}else if(response.message=="notdeleted"){
-							Swal.fire({
-								  icon: 'error',
-								  title: 'Oops...',
-								  text: 'Delete failed!',
-								  footer: ''
-								})
+							Swal.fire(
+									  'Have you removed the existing Tests?',
+									  'Delete failed',
+									  'question'
+									)
 						}
 						
 					},

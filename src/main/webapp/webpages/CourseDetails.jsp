@@ -104,10 +104,7 @@
                     </div>
                 </div>
             </div>
-            <div class="month-form">
-                <input type="month"/>
-                <button>Get Diagram</button>
-            </div>
+
             <div class="carpet" style="padding-top: 0;margin:16px;">
                 <div class="card">
                     <i class="fa-sharp fa-solid fa-book fa-2x"></i>

@@ -1,42 +1,37 @@
-       google.charts.load('current', {packages: ['corechart', 'line']});
-        google.charts.setOnLoadCallback(defaultLoadAttendanceChart);
+       google.charts.load('current', {packages: ['corechart', 'line','bar']});
+        google.charts.setOnLoadCallback(function(){
+			defaultLoadAttendanceChart();
+			drawBackgroundColor();
+		});
+       
 
 function drawBackgroundColor() {
-      
+       var data = new google.visualization.arrayToDataTable([
+          ['Move', 'Percentage'],
+          ["Test 1", 44],
+          ["Test 2", 31],
+        ]);
 
-      
+        var options = {
+          legend: { position: 'none' },
+          chart: {
+            title: 'Test results',
+            subtitle: '' },
+          axes: {
+            x: {
+              0: { side: 'top', label: ''} // Top x-axis.
+            }
+          },
+          bar: { groupWidth: "90%" }
+        };
 
-      var Testdata = new google.visualization.DataTable();
-      Testdata.addColumn('number', 'X');
-      Testdata.addColumn('number', 'Students');
-
-      Testdata.addRows([
-        [1,12],[2,17],[3,12],[4,23]
-        
-      ]);
-
-      var Testoptions = {
-        hAxis: {
-          title: 'Test'
-        },
-        vAxis: {
-          title: 'Passed'
-        },
-        backgroundColor: '#fefefe'
-    
-      };
-
-
-     
-
-      var Testchart = new google.visualization.LineChart(document.getElementById('Testchart_div'));
-      Testchart.draw(Testdata, Testoptions);
+        var chart = new google.charts.Bar(document.getElementById('Testchart_div'));
+        // Convert the Classic options to Material options.
+        chart.draw(data, google.charts.Bar.convertOptions(options));
     }
     
 	   $(document).ready(function(){
-		   
-		   
-		   
+
 			var url_string = window.location.href;
 			var url = new URL(url_string);
 			var courseId = url.searchParams.get("courseId");

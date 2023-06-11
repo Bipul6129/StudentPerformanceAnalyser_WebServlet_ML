@@ -9,4 +9,5 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="https://kit.fontawesome.com/4ed7a5f51a.js" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<% response.setHeader("Cache-Control","no-cache,no-store,must-revalidate"); %>
