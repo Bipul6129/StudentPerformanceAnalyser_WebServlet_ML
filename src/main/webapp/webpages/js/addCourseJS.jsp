@@ -96,7 +96,7 @@ $(document).ready(function(){
     					status="Completed";
     				}
     				
-    				$("#tableBody").append("<tr> <td>"+(i+1)+"</td> <td class='formcourseName'>"+response[i].courseName+"</td> <td>"+response[i].courseFaculty.toUpperCase()+"</td> <td>"+response[i].courseSemester+"</td> <td>"+response[i].courseCollege+"</td><td>"+status+"</td> <td><a href='CourseDetails.jsp?courseId="+response[i].courseId+"'>Details</a></td><td><button class='successButton' data-values='"+response[i].courseId+","+response[i].courseName+","+response[i].courseFaculty+","+response[i].courseSemester+","+response[i].courseCollege+","+response[i].courseStatus+"'>Edit</button></td><td><button class='dangerButton' value='"+response[i].courseId+"'>Remove</button></td> </tr>");
+    				$("#tableBody").append("<tr> <td>"+(i+1)+"</td> <td class='formcourseName'>"+response[i].courseName+"</td> <td>"+response[i].courseFaculty.toUpperCase()+"</td> <td>"+response[i].courseSemester+"</td> <td>"+response[i].courseCollege+"</td><td>"+status+"</td> <td><a href='CourseDetails.jsp?courseId="+response[i].courseId+"&college="+response[i].courseCollege+"&faculty="+response[i].courseFaculty+"'>Details</a></td><td><button class='successButton' data-values='"+response[i].courseId+","+response[i].courseName+","+response[i].courseFaculty+","+response[i].courseSemester+","+response[i].courseCollege+","+response[i].courseStatus+"'>Edit</button></td><td><button class='dangerButton' value='"+response[i].courseId+"'>Remove</button></td> </tr>");
     				
     				
 

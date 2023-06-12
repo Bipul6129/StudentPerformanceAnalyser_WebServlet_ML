@@ -52,7 +52,9 @@
                 <li>
                 	<a href="AddCollege.jsp">Colleges</a>
                 </li>
-                
+                <li>
+					<a href="AttendancePage.jsp">Attendance</a>
+				</li>
                 <li>
 					<a href="StudentOp.jsp">Student</a>
 				</li>

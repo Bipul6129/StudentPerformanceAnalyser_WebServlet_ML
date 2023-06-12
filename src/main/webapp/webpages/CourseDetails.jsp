@@ -5,6 +5,7 @@
 <head>
 <%@ include file="reusable_comp/ImportHeaders.jsp" %>
 <title>Insert title here</title>
+
 </head>
 <body>
 	<%@ include file="reusable_comp/CheckLogin.jsp" %>
@@ -81,27 +82,19 @@
             <!-- ========HERE IS ANOTHER CHART SECTION FOR TEST -->
             <h2 class="headCourse">Tests Chart for</h2>
             <div class="carpet" style="background: #dcb4fb;">
-                <div id="Testchart_div" class="chart"></div>
+                <div id="Testchart_div" class="chart"></div>+
                 <div class="card" style="
                                         background: none;
                                         justify-content: flex-start;
                                         padding: 0;
-                                        margin: 24px;">
-                    <div class="block-item">
+                                        margin: 24px;
+                                        ">
+                    <div class="block-item" style="height:320px">
                         <i class="fa-solid fa-people-group card-icon fa-2x"></i>
                         <label for="studentcount" >Total Students:</label>
                         <label for="student" class="totalStudent">49</label>
                     </div>
-                    <div class="block-item">
-                        <i class="fa-solid fa-people-group card-icon fa-2x"></i>
-                        <label for="studentcount">Most failed</label>
-                        <label for="student">49</label>
-                    </div>
-                    <div class="block-item">
-                        <i class="fa-solid fa-people-group card-icon fa-2x"></i>
-                        <label for="studentcount">Most passed</label>
-                        <label for="student">16</label>
-                    </div>
+
                 </div>
             </div>
 
@@ -109,35 +102,20 @@
                 <div class="card">
                     <i class="fa-sharp fa-solid fa-book fa-2x"></i>
                     <h4>Top Student (Recent)</h4>
-                    <label for="nameofstudent">Name: Bipul Tamang</label>
-                    <label for="presentdays">Presentdays: 26</label>
-                    <label for="totaldays">Todaldays: 28</label>
+                    <label for="nameofstudent" id="recentHighMarks">Name: </label>
+                    <label for="presentdays" id="recentHighObtain">MarksObtained:</label>
+                    <label for="totaldays" class="recentFullMarks">FullMarks: </label>
 
                 </div>
                 <div class="card">
                     <i class="fa-sharp fa-solid fa-book fa-2x"></i>
                     <h4>Low Perform (Recent)</h4>
-                    <label for="nameofstudent">Name: Bipul Tamang</label>
-                    <label for="presentdays">Presentdays: 12</label>
-                    <label for="totaldays">Todaldays: 28</label>
+                    <label for="nameofstudent" id="recentLowMarks">Name:</label>
+                    <label for="presentdays" id="recentLowObtain">MarksObtained: </label>
+                    <label for="totaldays" class="recentFullMarks">FullMarks: </label>
 
                 </div>
-                <div class="card">
-                    <i class="fa-sharp fa-solid fa-book fa-2x"></i>
-                    <h4>Top Student (AllTime)</h4>
-                    <label for="nameofstudent">Name: Bipul Tamang</label>
-                    <label for="presentdays">Presentdays: 12</label>
-                    <label for="totaldays">Todaldays: 28</label>
 
-                </div>
-                <div class="card">
-                    <i class="fa-sharp fa-solid fa-book fa-2x"></i>
-                    <h4>Low Perform (AllTime)</h4>
-                    <label for="nameofstudent">Name: Bipul Tamang</label>
-                    <label for="presentdays">Presentdays: 12</label>
-                    <label for="totaldays">Todaldays: 28</label>
-
-                </div>
             </div>
         
     </div>

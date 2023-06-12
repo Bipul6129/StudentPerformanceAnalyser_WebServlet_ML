@@ -16,6 +16,8 @@
 		
 		$(document).ready(function(){
 			
+			
+			
 			var courseArray=[];
 			var courseIdArray=[];
 			$.ajax({
@@ -33,6 +35,20 @@
 					$("#selectCourse").html(options);
 					$('#insertTestCourse').html(options);
 					
+					var dropdown = $('#selectCourse').children('option');
+					if(dropdown.length == 0){
+						
+					}else{
+						var courseId2 = $('#selectCourse').val();
+						const data2 = {
+								courseId:courseId2
+						}
+						$(".courseHead").empty();
+						$(".courseHead").html($('#selectCourse option:selected').text());
+						getTests(data2);
+					}
+					
+					
 				},
 				error:function(){
 					
@@ -40,13 +56,19 @@
 			})
 			
 			$("#getTestBtn").on('click',function(){
+				var dropdown = $('#selectCourse').children('option');
 				var course_id=$('#selectCourse').val();
-				$(".courseHead").empty();
-				$(".courseHead").html($('#selectCourse option:selected').text());
-				const data = {
-						courseId:course_id,
-				}
-				getTests(data);
+				if(dropdown.length == 0){
+						Swal.fire('Try adding course')
+					}else{
+						var courseId2 = $('#selectCourse').val();
+						const data2 = {
+								courseId:courseId2
+						}
+						$(".courseHead").empty();
+						$(".courseHead").html($('#selectCourse option:selected').text());
+						getTests(data2);
+					}
 			})
 			
 			$("#insertTestForm").on('submit',function(event){
