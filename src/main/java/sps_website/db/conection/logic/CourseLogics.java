@@ -92,8 +92,25 @@ public class CourseLogics {
 		try {
 			Connection con = EstablishConnection.getConnection();
 			String query = "delete from course where course_id=?";
+			String deleteStudent = "delete from student where course_id=?";
+			String deleteCourse = "delete from test where course_id=?";
+			String deleteAttendance = "delete from attendance where course_id=?";
+			
+			PreparedStatement pst4 = con.prepareStatement(deleteAttendance);
+			PreparedStatement pst3 =con.prepareStatement(deleteCourse);
+			PreparedStatement pst2 = con.prepareStatement(deleteStudent);
 			PreparedStatement pst = con.prepareStatement(query);
+			
 			pst.setInt(1, courseId);
+			pst2.setInt(1, courseId);
+			pst3.setInt(1, courseId);
+			pst4.setInt(1, courseId);
+			
+			
+			pst3.executeUpdate();
+			pst4.executeUpdate();
+			pst2.executeUpdate();
+			
 			int rowAffected = pst.executeUpdate();
 			
 			if(rowAffected>0) {

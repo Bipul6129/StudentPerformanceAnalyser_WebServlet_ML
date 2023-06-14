@@ -81,7 +81,8 @@ public class AttendanceAnalysisLogics {
 		AttendanceModel model = passedModel;
 		try {
 			Connection con = EstablishConnection.getConnection();
-			String query = "select s.student_id,s.name,count(a.student_id) as present_count from student s left join attendance a on s.student_id=a.student_id and a.status=1 where s.course_id=? and month(a.attendance_date)=? and year(a.attendance_date)=? group by s.student_id,s.name order by present_count desc";
+//			String query = "select s.student_id,s.name,count(a.student_id) as present_count from student s left join attendance a on s.student_id=a.student_id and a.status=1 where s.course_id=? and month(a.attendance_date)=? and year(a.attendance_date)=? group by s.student_id,s.name order by present_count desc";
+			String query="select s.student_id,s.name,sum(case when a.status=1 then 1 else 0 end) as present_count from student s left join attendance a on s.student_id=a.student_id where s.course_id=? and month(a.attendance_date)=? and year(a.attendance_date)=? group by s.student_id,s.name order by present_count desc";
 			PreparedStatement pst =con.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			pst.setInt(1,courseId);
 			pst.setInt(2,Month);
@@ -112,16 +113,23 @@ public class AttendanceAnalysisLogics {
 			set.beforeFirst();
 			String Highnames="";
 			String Lownames="";
+			String HighIdList="";
+			String LowIdList="";
 			while(set.next()) {
 				System.out.println("the second loop name"+set.getString("name"));
 				if(set.getInt("present_count")==highPresentCount) {
-					
+					String highId = String.valueOf(set.getInt("student_id"));
 					String highPresentName = set.getString("name");
 					Highnames = Highnames+highPresentName+",";
+					HighIdList = HighIdList+highId+",";
 				
 				}else if(set.getInt("present_count")==lowPresentCount) {
 					String lowPresentName = set.getString("name");
+					String lowId = String.valueOf(set.getInt("student_id"));
+					
+					LowIdList = LowIdList+lowId+",";
 					Lownames=Lownames+set.getString("name")+",";
+					
 				}
 			}
 			
@@ -129,6 +137,8 @@ public class AttendanceAnalysisLogics {
 			model.setHighPresentName(Highnames);
 			System.out.println("The low names we got"+Lownames);
 			model.setLowPresentName(Lownames);
+			model.setHighPresetnIdList(HighIdList);
+			model.setLowPresentIdList(LowIdList);
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -171,20 +181,24 @@ public class AttendanceAnalysisLogics {
 	
 			}
 			set.beforeFirst();
-			
+			String highId="";
+			String lowId="";
 			String highName="";
 			String lowName="";
 			while(set.next()) {
 				if(set.getInt("present_count")==highPresentCount) {
 					highName=highName+set.getString("name")+",";
+					highId=highId+String.valueOf(set.getInt("student_id"))+",";
 				}else if(set.getInt("present_count")==lowPresentCount) {
 					lowName = lowName+set.getString("name")+",";
+					lowId = lowId+String.valueOf(set.getInt("student_id"))+",";
 				}
 			}
 			
 			model.setAllTimeHighName(highName);
 			model.setAllTimeLowName(lowName);
-			
+			model.setAllTimeHighIdList(highId);
+			model.setAllTimeLowIdList(lowId);
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

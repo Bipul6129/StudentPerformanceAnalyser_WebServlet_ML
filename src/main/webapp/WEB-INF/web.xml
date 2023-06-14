@@ -51,7 +51,6 @@
 </servlet-mapping>
 
 
-
 <servlet>
 	<servlet-name>MyCourseServlet</servlet-name>
 	<servlet-class>sps_website.control.MyCourseServlet</servlet-class>
@@ -81,4 +80,73 @@
 	<url-pattern>/webpages/myStudent</url-pattern>
 </servlet-mapping>
 
+
+<servlet>
+	<servlet-name>MyTestServlet</servlet-name>
+	<servlet-class>sps_website.control.MyTestServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>MyTestServlet</servlet-name>
+	<url-pattern>/webpages/myTest</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>MyMarksServlet</servlet-name>
+	<servlet-class>sps_website.control.MarksAllocationServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>MyMarksServlet</servlet-name>
+	<url-pattern>/webpages/myMarks</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>MyTestChartServlet</servlet-name>
+	<servlet-class>sps_website.control.CourseTestChartServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>MyTestChartServlet</servlet-name>
+	<url-pattern>/webpages/myTestChart</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>MyTestAnalysisServlet</servlet-name>
+	<servlet-class>sps_website.control.TestBreadServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>MyTestAnalysisServlet</servlet-name>
+	<url-pattern>/webpages/myTestAnalysis</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>MyAttendanceServlet</servlet-name>
+	<servlet-class>sps_website.control.AttendanceServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>MyAttendanceServlet</servlet-name>
+	<url-pattern>/webpages/myAttendance</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>StudentProfileServlet</servlet-name>
+	<servlet-class>sps_website.control.StudentProfileServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>StudentProfileServlet</servlet-name>
+	<url-pattern>/webpages/studentProfile</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>StudentTestChartModel</servlet-name>
+	<servlet-class>sps_website.control.StudentTestChartServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>StudentTestChartModel</servlet-name>
+	<url-pattern>/webpages/studentTestChart</url-pattern>
+</servlet-mapping>
 </web-app>

@@ -12,7 +12,8 @@ public class AttendanceModel {
 	private int highPresentId;
 	private int lowPresentId;
 	
-	
+	private String highPresetnIdList;
+	private String lowPresentIdList;
 
 
 
@@ -27,6 +28,42 @@ public class AttendanceModel {
 	private int allTimeLowId;
 	private int TotalClassDays;
 	
+	private String allTimeHighIdList;
+	private String allTimeLowIdList;
+	
+	
+	public String getAllTimeHighIdList() {
+		return allTimeHighIdList;
+	}
+
+	public void setAllTimeHighIdList(String allTimeHighIdList) {
+		this.allTimeHighIdList = allTimeHighIdList;
+	}
+
+	public String getAllTimeLowIdList() {
+		return allTimeLowIdList;
+	}
+
+	public void setAllTimeLowIdList(String allTimeLowIdList) {
+		this.allTimeLowIdList = allTimeLowIdList;
+	}
+
+	public String getHighPresetnIdList() {
+		return highPresetnIdList;
+	}
+
+	public void setHighPresetnIdList(String highPresetnIdList) {
+		this.highPresetnIdList = highPresetnIdList;
+	}
+
+	public String getLowPresentIdList() {
+		return lowPresentIdList;
+	}
+
+	public void setLowPresentIdList(String lowPresentIdList) {
+		this.lowPresentIdList = lowPresentIdList;
+	}
+
 	public String[] getHighPresentArray() {
 		return HighPresentArray;
 	}
