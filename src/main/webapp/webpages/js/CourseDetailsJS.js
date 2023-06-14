@@ -144,9 +144,9 @@ function drawBackgroundColor(chart_data) {
 					
 					if(typeof response.AllTimeHighName !== 'undefined'){
 						$("#AllTimeHighName").empty();
-						$("#AllTimeHighName").append("<button class='successButton' value='"+response.AllTimeHighName+"' >View</button>");
+						$("#AllTimeHighName").append("<button class='successButton' data-value1='"+response.AllTimeHighName+"' data-value2='"+response.allTimeHighIdList+"'>View</button>");
 						$("#AllTimeLowName").empty();
-						$("#AllTimeLowName").append("<button class='successButton' value='"+response.AllTimeLowName+"' >View</button>");
+						$("#AllTimeLowName").append("<button class='successButton' data-value1='"+response.AllTimeLowName+"' data-value2='"+response.allTimeLowIdList+"'>View</button>");
 					}else{
 						$("#AllTimeHighName").empty();
 						$("#AllTimeLowName").empty();
@@ -169,19 +169,19 @@ function drawBackgroundColor(chart_data) {
 						
 					}else{
 						$("#HighMonthName").empty();
-						$("#HighMonthName").append("<button class='successButton' value='"+response.highPresentName+"' >View</button>");
+						$("#HighMonthName").append("<button class='successButton' data-value1='"+response.highPresentName+"' data-value2='"+response.highPresetnIdList+"' >View</button>");
 						$("#HighMonthPresent").empty();
 						$("#HighMonthPresent").append("PresentDays:"+response.highPresentCount);
 						
 						if(response.lowPresentName ==""){
 							console.log("empty")
 							$("#LowMonthName").empty();
-							$("#LowMonthName").append("<button class='successButton' value='"+response.lowPresentName+"' >View</button>");
+							$("#LowMonthName").append("<button class='successButton' data-value1='"+response.lowPresentName+"' data-value2='"+response.lowPresentIdList+"' >View</button>");
 							$("#LowMonthPresent").empty();
 							$("#LowMonthPresent").append("PresentDays:");
 						}else{
 							$("#LowMonthName").empty();
-							$("#LowMonthName").append("<button class='successButton' value='"+response.lowPresentName+"' >View</button>");
+							$("#LowMonthName").append("<button class='successButton' data-value1='"+response.lowPresentName+"' data-value2='"+response.lowPresentIdList+"' >View</button>");
 							$("#LowMonthPresent").empty();
 							$("#LowMonthPresent").append("PresentDays:"+response.lowPresentCount);
 						}
@@ -223,12 +223,25 @@ function drawBackgroundColor(chart_data) {
     
 
     	$(".card").on('click','.successButton',function(){
-			var names = $(this).val();
+			var names = $(this).data('value1');
 			var name = names.split(',');
+			
+			var ids = $(this).data('value2');
+			var id = ids.split(',');
+			
+			
 			var list="";
+			
+			var currentUrl = window.location.href;
+			var url = new URL(currentUrl);
+			var params = new URLSearchParams(url.search);
+			
+			var gotCourse = params.get('courseId');
+			
+			
 			for(i=0;i<name.length;i++){
 				console.log(name[i]);
-				list=list+name[i]+"<br>";
+				list=list+"<a href='StudentProfile.jsp?course_id="+gotCourse+"&student_id="+id[i]+"&course="+""+"'>"+name[i]+"</a><br>";
 			}
 			Swal.fire(list)
 			

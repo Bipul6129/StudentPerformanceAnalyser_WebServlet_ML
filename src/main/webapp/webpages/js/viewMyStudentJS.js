@@ -21,7 +21,7 @@
 				}
 			})
 			
-			
+
 			
 			$("#getStudentBtn").on('click',function(){
 				$("#tableBody").empty();
@@ -114,7 +114,7 @@
 						
 						$("#courseHead").append($("#selectCourse option:selected").text());
 						for(i=0;i<response.length;i++){
-							$("#tableBody").append("<tr><td>"+(i+1)+"</td><td>"+response[i].studentName+"</td><td>"+response[i].age+"</td><td>"+response[i].gender+"</td><td><button class='successButton' data-values='"+response[i].studentName+","+response[i].courseId+","+response[i].age+","+response[i].ethnicity+","+response[i].gender+","+response[i].studentStatus+","+response[i].studentId+"'>Edit</button></td><td><button class='dangerButton' value='"+response[i].studentId+"'>Remove</button></td></tr>");	
+							$("#tableBody").append("<tr><td>"+(i+1)+"</td><td>"+response[i].studentName+"</td><td>"+response[i].age+"</td><td>"+response[i].gender+"</td><td><a href='StudentProfile.jsp?course_id="+response[i].courseId+"&student_id="+response[i].studentId+"&course="+$("#selectCourse option:selected").text()+"'>Profile</a></td><td><button class='successButton' data-values='"+response[i].studentName+","+response[i].courseId+","+response[i].age+","+response[i].ethnicity+","+response[i].gender+","+response[i].studentStatus+","+response[i].studentId+"'>Edit</button></td><td><button class='dangerButton' value='"+response[i].studentId+"'>Remove</button></td></tr>");	
 							
 						}
 						
