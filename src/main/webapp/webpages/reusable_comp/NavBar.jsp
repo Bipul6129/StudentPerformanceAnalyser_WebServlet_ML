@@ -6,7 +6,7 @@
 		%>
 	<header id="navbar">
         <div class="logo">
-            <h1>LOGO HERE</h1>
+            <img src="assets/logo.png" style="width:65px;height:65px;margin-top:5px"/>
         </div>
         <input type="checkbox" id="nav_check" hidden>
         <nav>
@@ -37,7 +37,7 @@
 		%>
 	<header id="navbar">
         <div class="logo">
-            <h1>LOGO HERE</h1>
+            <img src="assets/logo.png" style="width:65px;height:65px;margin-top:5px"/>
         </div>
         <input type="checkbox" id="nav_check" hidden>
         <nav>
@@ -60,6 +60,9 @@
 				</li>
                 <li>
                 	<a href="TestView.jsp">Tests</a>
+                </li>
+                <li>
+                	<a href="AnalyzePage.jsp">Analyze</a>
                 </li>
                 <li>
                     <a href="/sps_website/webpages/logoutuser" class="">Logout</a>

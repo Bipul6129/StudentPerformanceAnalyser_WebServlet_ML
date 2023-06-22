@@ -149,4 +149,15 @@
 	<servlet-name>StudentTestChartModel</servlet-name>
 	<url-pattern>/webpages/studentTestChart</url-pattern>
 </servlet-mapping>
+
+
+<servlet>
+	<servlet-name>MyAlgorithm</servlet-name>
+	<servlet-class>sps_website.control.AlgorithmServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>MyAlgorithm</servlet-name>
+	<url-pattern>/webpages/algoTrigger</url-pattern>
+</servlet-mapping>
+
 </web-app>
