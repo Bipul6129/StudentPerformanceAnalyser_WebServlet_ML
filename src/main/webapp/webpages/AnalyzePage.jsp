@@ -12,8 +12,33 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
 	<style>
 		label{
-			font-size:32px;
+			font-size:24px;
+			width:100%;
 		}
+		.carpet{
+			
+		}
+		#ethnicSelect{
+			text-align:center;
+			
+		}
+		.selectCard{
+			height:230px;
+			background-color:#edd5a1;
+		}
+		.selectOption{
+			margin-top:16px;
+			font-size:18px;
+			background-color:white;
+		}
+		.selectedOption{
+			margin-bottom:24px;
+		}
+		
+		.selected{
+			background-color:lightgreen
+		}
+		
 	</style>
 
 </head>
@@ -22,10 +47,39 @@
 	<%@ include file="reusable_comp/NavBar.jsp" %>
 	<div class="center_div">
 		<h2>Analyze Page</h2>
-		<div id="map" style="height:500px;width:870px">
-		
+		<div class="carpet">
+			<div id="map" style="height:400px;width:64%">
+			
+			</div>
+			<div class="card">
+				<label id="ethnicSelect" class="selectedOption">Select Ethnicity</label>
+				<label id="ageSelect" class="selectedOption">Select Age</label>
+				<label id="genderSelect" class="selectedOption">Select Gender</label>
+				<label id="statusSelect" class="selectedOption">Select Status</label>
+				
+			</div>
+			
 		</div>
-		<label id="ethnicSelect">Select Ethnicity</label>
+		<div class="carpet" style="background-color:#67B6E2">
+			<div class="card selectCard">
+				<label >Age</label>
+				<label class="selectAge selectOption"><18</label>
+				<label class="selectAge selectOption">>18<25</label>
+				<label class="selectAge selectOption">>25</label>
+			</div>
+			<div class="card selectCard">
+				<label >Gender</label>
+				<label class="selectGender selectOption">Male</label>
+				<label class="selectGender selectOption">Female</label>
+				<label class="selectGender selectOption">Other</label>
+			</div>
+			<div class="card selectCard">
+				<label >Status</label>
+				<label class="selectStatus selectOption" style="">Rich</label>
+				<label class="selectStatus selectOption" >Middle</label>
+				<label class="selectStatus selectOption" >Poor</label>
+			</div>
+		</div>
 		
 		<button id="analyzeBtn">Analyze</button>
 		
@@ -36,6 +90,37 @@
 	
 	<script>
 		$(document).ready(function(){
+			var selectEth = false;
+			var selectAge = false;
+			var selectGender = false;
+			var selectStatus = false;
+			
+			$('.selectStatus').on('click',function(){
+				$('.selectStatus').removeClass('selected');
+				$('#statusSelect').empty();
+				$('#statusSelect').append($(this).text());
+				$(this).addClass('selected');
+				selectStatus=true;
+			});
+			
+			$('.selectGender').on('click',function(){
+				$('.selectGender').removeClass('selected');
+				$('#genderSelect').empty();
+				$('#genderSelect').append($(this).text());
+				$(this).addClass('selected');
+				selectGender=true;
+			});
+			
+			$('.selectAge').on('click',function(){
+				$('.selectAge').removeClass('selected');
+				$('#ageSelect').empty();
+				$('#ageSelect').append($(this).text());
+				$(this).addClass('selected');
+				selectAge=true;
+			});
+			
+			
+			
 			
 			var map = L.map('map',{
 				center:[28.4,804.34],
@@ -72,32 +157,52 @@
 				
 				$('#ethnicSelect').empty();
 				$('#ethnicSelect').append('Himalayan');
+				selectEth=true;
 			})
 			
 			hillyPoly.on('click',function(e){
 				
 				$('#ethnicSelect').empty();
 				$('#ethnicSelect').append('Hilly');
+				selectEth=true;
 			})
 			
 			teraiPoly.on('click',function(e){
 				
 				$('#ethnicSelect').empty();
 				$('#ethnicSelect').append('Terai');
+				selectEth=true;
 			})
 			
 			
 			$('#analyzeBtn').on('click',function(){
-				$.ajax({
-					url:'algoTrigger',
-					method:'get',
-					success:function(response){
-						console.log(response);
-					},
-					error:function(){
-						
+				if(!selectAge||!selectGender||!selectEth||!selectStatus){
+					Swal.fire(
+							  'Select All Attribute',
+							  'Select all attribute to analyze the performance ',
+							  'error'
+							)
+				}else{
+					data={
+						ethnic:$('#ethnicSelect').text().toLowerCase(),
+						age:$('#ageSelect').text().toLowerCase(),
+						gender:$('#genderSelect').text().toLowerCase(),
+						status:$('#statusSelect').text().toLowerCase(),
 					}
-				})
+					console.log(data);
+					$.ajax({
+						url:'algoTrigger',
+						method:'get',
+						data:data,
+						success:function(response){
+							console.log(response);
+						},
+						error:function(){
+							
+						}
+					});
+				}
+				
 			})
 			
 		})

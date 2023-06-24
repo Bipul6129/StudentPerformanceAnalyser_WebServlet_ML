@@ -1,79 +1,50 @@
 package sps_website.algorithm;
 import sps_website.db.conection.*;
+import sps_website.model.PredictModel;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.*;
 public class gatherAndTrigger {
-	public static void trigger(HttpServletRequest req) throws Exception {
-		String[][] dataset ={
-	            {">18<25","male","himalayan","poor","Well"},
-	            {">25","female","terai","middle","Well"},
-	            {">25","other","hilly","rich","NotWell"},
-	            {">18<25","other","terai","middle","Well"},
-	            {">18<25","male","himalayan","poor","NotWell"},
-	            {">25","other","hilly","middle","Well"},
-	            {">18<25","female","hilly","rich","NotWell"},
-	            {"<18","male","terai","poor","Well"},
-	            {"<18","male","hilly","middle","NotWell"},
-	            {">25","female","himalayan","rich","NotWell"},
-	            {"<18","male","hilly","middle","Well"},
-	            {">18<25","female","terai","rich","NotWell"},
-	            {"<18","female","himalayan","poor","Well"},
-	            {">18<25", "other", "terai", "middle", "Well"},
-	            {">25", "male", "himalayan", "middle", "Well"},
-	            {">25", "male", "terai", "rich", "Well"},
-	            {">18<25", "male", "hilly", "poor", "NotWell"},
-	            {">18<25", "female", "terai", "middle", "Well"},
-	            {"<18", "other", "hilly", "poor", "Well"},
-	            {">25", "female", "himalayan", "middle", "NotWell"},
-	            {">18<25", "male", "terai", "middle", "Well"},
-	            {">18<25", "other", "terai", "rich", "Well"},
-	            {">18<25", "male", "himalayan", "middle", "NotWell"},
-	            {">25", "female", "hilly", "middle", "NotWell"},
-	            {">25", "other", "himalayan", "middle", "Well"},
-	            {">18<25", "male", "terai", "poor", "NotWell"},
-	            {"<18", "male", "hilly", "poor", "NotWell"},
-	            {">25", "male", "terai", "middle", "Well"},
-	            {">18<25", "female", "hilly", "rich", "Well"},
-	            {">18<25", "male", "hilly", "middle", "NotWell"},
-	            {">25", "other", "hilly", "middle", "NotWell"},
-	            {">25", "female", "terai", "poor", "NotWell"},
-	            {"<18", "male", "terai", "middle", "Well"},
-	            {">25", "female", "himalayan", "rich", "Well"},
-	            {">18<25", "male", "hilly", "middle", "Well"},
-	            {">18<25", "female", "terai", "poor", "NotWell"},
-	            {">25", "male", "hilly", "middle", "Well"},
-	            {"<18", "other", "himalayan", "middle", "Well"},
-	            
-	            
-	        };
-//		String Result = getTrainingData();
-//		System.out.print(Result+" is what we got ");
+	public static String trigger(HttpServletRequest req,PredictModel model) throws Exception {
+
+		String outcome="";
 		HttpSession session = req.getSession();
 		
 		if(session.getAttribute("rootNode")!=null) {
 			DecisionNode rootNode = (DecisionNode) session.getAttribute("rootNode");
-			Map<String,String> input = new HashMap<>();
-			if(input.size()>0) {
-				input.clear();
-			}
-	        input.put("status","poor");
-	        input.put("ethnicity","himalayan");
-	        input.put("gender","male");
-	        input.put("age","<18");
-	        PredictValue predict = new PredictValue();
-	        String performance=predict.checkclass(rootNode, input);
-	        input.clear();
+			outcome=predictResult(rootNode,session,model);
 		}else {
 			final String[][] dbData =  getTrainingData();
 			session.setAttribute("rootNode", App.Analyze(dbData));
+			DecisionNode rootNode = (DecisionNode) session.getAttribute("rootNode");
+			outcome=predictResult(rootNode,session,model);
 		}
-
-//		
+		
+		return outcome;
 		
 	}
+	
+	
+	public static String predictResult(DecisionNode rootNode,HttpSession session,PredictModel model) {
+		rootNode = (DecisionNode) session.getAttribute("rootNode");
+		Map<String,String> input = new HashMap<>();
+		if(input.size()>0) {
+			input.clear();
+		}
+        input.put("status",model.getStatus());
+        input.put("ethnicity",model.getEthnicity());
+        input.put("gender",model.getGender());
+        input.put("age",model.getAge());
+        PredictValue predict = new PredictValue();
+        String performance=predict.checkclass(rootNode, input);
+        System.out.println("This is from predict Function "+performance);
+        input.clear();
+        return performance;
+	}
+	
 	
 	public static String[][] getTrainingData() throws Exception {
 		Connection con = EstablishConnection.getConnection();

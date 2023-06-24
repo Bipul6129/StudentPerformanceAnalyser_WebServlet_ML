@@ -20,24 +20,22 @@ public class App {
         attribute.put("status",new String[]{"rich","poor","middle","3"});
 
         rootNode=buildDecisionTree(dataSet,attribute);
-//        PrintTree printRoot = new PrintTree();
-//        printRoot.print(rootNode, attribute);
-        Map<String,String> input = new HashMap<>();
-        input.put("status","rich");
-        input.put("ethnicity","hilly");
-        input.put("gender","female");
-        input.put("age","<18");
-        if(rootNode!=null) {
-        	PredictValue predict = new PredictValue();
-            String performance=predict.checkclass(rootNode, input);
-        }
+        
+//        Map<String,String> input = new HashMap<>();
+//        input.put("status","rich");
+//        input.put("ethnicity","hilly");
+//        input.put("gender","female");
+//        input.put("age","<18");
+//        if(rootNode!=null) {
+//        	PrintTree printRoot = new PrintTree();
+//            printRoot.print(rootNode, attribute);
+//        }
         
 //         DecisionNode genderNode = rootNode.getChild("himalayan");
 //         DecisionNode ageNode = genderNode.getChild("male");
 //         DecisionNode status = ageNode.getChild(">18<25");
 //         System.out.println(status.getChild("poor").getClassification());
         attribute.clear();
-        input.clear();
         return rootNode;
         
     }
