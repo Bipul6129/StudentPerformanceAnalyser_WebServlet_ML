@@ -17,9 +17,9 @@ public class MyStudentServlet extends HttpServlet{
 		String ethnicity = req.getParameter("studentEthnicity");
 		String gender = req.getParameter("studentGender");
 		String studentStatus = req.getParameter("studentStatus");
-		
+		String studentEmail = req.getParameter("studentEmail");
 		try {
-			boolean status = StudentLogics.insertStudent(StudentName, courseId, age, ethnicity, gender, studentStatus);
+			boolean status = StudentLogics.insertStudent(StudentName,studentEmail, courseId, age, ethnicity, gender, studentStatus);
 			if(status) {
 				res.setContentType("application/json");
 				String resData = "{\"message\":\"inserted\"}";
@@ -111,9 +111,10 @@ public class MyStudentServlet extends HttpServlet{
 		String ethni = jsonData.get("ethni").getAsString();
 		String gender = jsonData.get("gender").getAsString();
 		String status = jsonData.get("status").getAsString();
+		String email = jsonData.get("studentEmail").getAsString();
 		
 		try {
-			boolean result=StudentLogics.updateStudent(studentId, studentName, age, ethni, gender, courseId, status);
+			boolean result=StudentLogics.updateStudent(studentId, studentName, age, ethni, gender, courseId, status,email);
 			if(result) {
 				SendJsonMessage.sendJson(res,"updated");
 			}else {

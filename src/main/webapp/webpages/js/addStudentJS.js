@@ -19,7 +19,7 @@
 			$("#studentAddForm").on('submit',function(event){
 				event.preventDefault();
 				var formData = $(this).serialize();
-				if($("#studentName").val()==""||$("#studentAge").val()==""){
+				if($("#studentName").val()==""||$("#studentAge").val()==""||$("#studentEmail").val()==""){
 					Swal.fire({
 						  icon: 'error',
 						  title: 'Oops...',

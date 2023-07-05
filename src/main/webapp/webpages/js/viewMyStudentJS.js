@@ -114,7 +114,7 @@
 						
 						$("#courseHead").append($("#selectCourse option:selected").text());
 						for(i=0;i<response.length;i++){
-							$("#tableBody").append("<tr><td>"+(i+1)+"</td><td>"+response[i].studentName+"</td><td>"+response[i].age+"</td><td>"+response[i].gender+"</td><td><a href='StudentProfile.jsp?course_id="+response[i].courseId+"&student_id="+response[i].studentId+"&course="+$("#selectCourse option:selected").text()+"'>Profile</a></td><td><button class='successButton' data-values='"+response[i].studentName+","+response[i].courseId+","+response[i].age+","+response[i].ethnicity+","+response[i].gender+","+response[i].studentStatus+","+response[i].studentId+"'>Edit</button></td><td><button class='dangerButton' value='"+response[i].studentId+"'>Remove</button></td></tr>");	
+							$("#tableBody").append("<tr><td>"+(i+1)+"</td><td>"+response[i].studentName+"</td><td>"+response[i].email+"</td><td>"+response[i].age+"</td><td>"+response[i].gender+"</td><td><a href='StudentProfile.jsp?course_id="+response[i].courseId+"&student_id="+response[i].studentId+"&course="+$("#selectCourse option:selected").text()+"'>Profile</a></td><td><button class='successButton' data-values='"+response[i].studentName+","+response[i].courseId+","+response[i].age+","+response[i].ethnicity+","+response[i].gender+","+response[i].studentStatus+","+response[i].studentId+","+response[i].email+"'>Edit</button></td><td><button class='dangerButton' value='"+response[i].studentId+"'>Remove</button></td></tr>");	
 							
 						}
 						
@@ -174,6 +174,7 @@
 					title:'Edit Student',
 					html:'<input type="hidden" value="'+studentEdit[6]+'" id="swalId">'+
 						  '<input id="swalName" value="'+studentEdit[0]+'" placeholder="StudentName" /><br>'+
+						  '<input id="swalEmail" value="'+studentEdit[7]+'" placeholder="StudentEmail" /><br>'+
 						  selectCourse+'<br>'+
 						  '<input id="swalAge" value="'+studentEdit[2]+'" placeholder="StudentAge"/><br>'+
 						  selectEthnicity+
@@ -184,6 +185,7 @@
 					preConfirm:function(){
 						var studentId = $("#swalId").val();
 						var studentName = $('#swalName').val();
+						var studentEmail = $('#swalEmail').val();
 						var course = $('#swalCourse').val();
 						var age = $('#swalAge').val();
 						var ethni = $('#swalEthni').val();
@@ -193,7 +195,7 @@
 						if(!studentName){
 							Swal.showValidationMessage('Please fill in all fields');
 						}
-						return {studentId:studentId,studentName:studentName,course:course,age:age,ethni:ethni,gender:gender,status:status}
+						return {studentId:studentId,studentName:studentName,studentEmail:studentEmail,course:course,age:age,ethni:ethni,gender:gender,status:status}
 					}
 				}).then(function(result){
 					if(result.isConfirmed){
@@ -201,6 +203,7 @@
 						const data={
 								studentId:result.value.studentId,
 								studentName:result.value.studentName,
+								studentEmail:result.value.studentEmail,
 								course:result.value.course,
 								age:result.value.age,
 								ethni:result.value.ethni,

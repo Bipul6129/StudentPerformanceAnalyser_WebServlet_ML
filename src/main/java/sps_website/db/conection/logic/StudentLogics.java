@@ -5,17 +5,18 @@ import sps_website.db.conection.*;
 import sps_website.model.*;
 
 public class StudentLogics {
-	public static boolean insertStudent(String StudentName,int courseId,int age,String ethnicity,String gender,String status) throws ClassNotFoundException, SQLException {
+	public static boolean insertStudent(String StudentName,String studentEmail,int courseId,int age,String ethnicity,String gender,String status) throws ClassNotFoundException, SQLException {
 		boolean result=false;
 		Connection con= EstablishConnection.getConnection();
-		String query = "insert into student(name,age,ethnicity,gender,course_id,student_status) values(?,?,?,?,?,?)";
+		String query = "insert into student(name,email,age,ethnicity,gender,course_id,student_status) values(?,?,?,?,?,?,?)";
 		PreparedStatement pst = con.prepareStatement(query);
 		pst.setString(1, StudentName);
-		pst.setInt(2,age);
-		pst.setString(3,ethnicity);
-		pst.setString(4,gender);
-		pst.setInt(5,courseId);
-		pst.setString(6,status);
+		pst.setString(2, studentEmail);
+		pst.setInt(3,age);
+		pst.setString(4,ethnicity);
+		pst.setString(5,gender);
+		pst.setInt(6,courseId);
+		pst.setString(7,status);
 		
 		int rowAffected = pst.executeUpdate();
 		
@@ -43,8 +44,8 @@ public class StudentLogics {
 			String gender = set.getString("gender");
 			String studentStatus = set.getString("student_status");
 			int course_Id = set.getInt("course_id");
-			
-			StudentModel obj = new StudentModel(studentId,name,age,ethnicity,gender,studentStatus,course_Id);
+			String email = set.getString("email");
+			StudentModel obj = new StudentModel(studentId,name,age,ethnicity,gender,studentStatus,course_Id,email);
 			model.add(obj);
 		}
 		
@@ -74,14 +75,18 @@ public class StudentLogics {
 		String query = "delete from student where student_id=?";
 		String query2 = "delete from attendance where student_id=?";
 		String query3 = "delete from marks_allocation where student_id=?";
+		String query4 = "delete from feedback where student_id=?";
+		PreparedStatement pst4 = con.prepareStatement(query4);
 		PreparedStatement pst3 = con.prepareStatement(query3);
 		PreparedStatement pst2 = con.prepareStatement(query2);
 		PreparedStatement pst = con.prepareStatement(query);
 		
+		pst4.setInt(1, studentId);
 		pst3.setInt(1, studentId);
 		pst2.setInt(1, studentId);
 		pst.setInt(1, studentId);
 		
+		pst4.executeUpdate();
 		pst3.executeUpdate();
 		pst2.executeUpdate();
 		int rowAffected = pst.executeUpdate();
@@ -94,11 +99,11 @@ public class StudentLogics {
 		return status;
 	}
 	
-	public static boolean updateStudent(int student_id,String studentName,int age,String ethnicity,String gender,int courseId,String studentStatus) throws ClassNotFoundException, SQLException {
+	public static boolean updateStudent(int student_id,String studentName,int age,String ethnicity,String gender,int courseId,String studentStatus,String email) throws ClassNotFoundException, SQLException {
 		boolean result = false;
 		
 		Connection con = EstablishConnection.getConnection();
-		String query="update student set name=?,age=?,ethnicity=?,gender=?,course_id=?,student_status=? where student_id=?";
+		String query="update student set name=?,email=?,age=?,ethnicity=?,gender=?,course_id=?,student_status=? where student_id=?";
 		String attendanceQuery = "update attendance set course_id=? where student_id=?";
 		
 		int checkCourse = getStudentCourseId(student_id);
@@ -118,12 +123,13 @@ public class StudentLogics {
 		pst2.executeUpdate();
 		
 		pst.setString(1,studentName);
-		pst.setInt(2,age);
-		pst.setString(3,ethnicity);
-		pst.setString(4,gender);
-		pst.setInt(5, courseId);
-		pst.setString(6,studentStatus);
-		pst.setInt(7,student_id);
+		pst.setString(2,email);
+		pst.setInt(3,age);
+		pst.setString(4,ethnicity);
+		pst.setString(5,gender);
+		pst.setInt(6, courseId);
+		pst.setString(7,studentStatus);
+		pst.setInt(8,student_id);
 		
 		int rowAffected=pst.executeUpdate();
 		if(rowAffected>0) {
@@ -166,6 +172,33 @@ public class StudentLogics {
 			student.setGender(set.getString("gender"));
 			student.setCourseId(set.getInt("course_id"));
 			student.setStudentStatus(set.getString("student_status"));
+			student.setEmail(set.getString("email"));
+		}
+		student = getStudentAttendanceTotal(student);
+		return student;
+	}
+	
+	public static StudentModel getStudentAttendanceTotal(StudentModel student) throws ClassNotFoundException, SQLException {
+		
+		Connection con = EstablishConnection.getConnection();
+		String totalQuery = "select count(*) as totalClass from attendance where course_id=? and student_id=? ";
+		PreparedStatement totalPst = con.prepareStatement(totalQuery);
+		totalPst.setInt(1, student.getCourseId());
+		totalPst.setInt(2, student.getStudentId());
+		ResultSet Totalset = totalPst.executeQuery();
+		
+		while(Totalset.next()) {
+			student.setTotalAttendance(" Out of "+Totalset.getInt("totalClass"));
+		}
+		
+		String specificQuery = "select count(*) as specificPresent from attendance where course_id=? and student_id=? and status=1";
+		PreparedStatement specificPst = con.prepareStatement(specificQuery);
+		specificPst.setInt(1, student.getCourseId());
+		specificPst.setInt(2, student.getStudentId());
+		ResultSet specSet = specificPst.executeQuery();
+		
+		while(specSet.next()) {
+			student.setTotalAttendance(student.getTotalAttendance()+" days : "+specSet.getInt("specificPresent"));
 		}
 		
 		return student;

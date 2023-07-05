@@ -20,7 +20,7 @@
 <body>
 	<%@ include file="reusable_comp/CheckLogin.jsp" %>
 	<%@ include file="reusable_comp/NavBar.jsp" %>
-	<div class="blanker">
+	<div id="blanker">
 		<div class="center_div">
             <h2 id="headingCourse"></h2>
   
@@ -51,22 +51,18 @@
                             <label for="studentcount">Gender:</label>
                             <label for="student" id="studentGender"></label>
                         </div>
+                        <div class="block-item">
+                            
+                            <label for="AttendanceCount"></label>
+                            <label for="student" id="studentAttendance"></label>
+                        </div>
                     </div>
             </div>
             <button id="showpopup">Post FeedBack</button>
 
             <h2>Previous Feedbacks</h2>
-            <div class="carpet" style="padding-top: 0;margin:16px;text-align: start;">
-                <div class="card feedbackcard">
-                    <i class="fa-sharp fa-regular fa-comment fa-2x"></i>
-                    <h4>Subject: For test results</h4>
-                    <label for="presentdays">Message: Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptates consectetur deserunt laudantium!</label>
-                </div>
-                <div class="card feedbackcard">
-                    <i class="fa-sharp fa-regular fa-comment fa-2x"></i>
-                    <h4>Subject: For test results</h4>
-                    <label for="presentdays">Message: Study new topic</label>
-                </div>
+            <div id="feedbackSpace" class="carpet" style="padding-top: 0;margin:16px;text-align: start;">
+
             </div>
         </div>
 	</div>
@@ -74,25 +70,28 @@
 	<div class="center">
             <div class="popup">
                 <div class="close-btn">&times;</div>
-                <div class="form">
+                <form class="form" id="feedbackForm">
                     <h2>PostFeedback</h2>
                     <div class="form-element">
                         <label for="coursename">Feedback on</label>
-                        <input type="text" placeholder="Enter subject for feedback"/>
+                        <input type="text" name="feedback_subject" placeholder="Enter subject for feedback" id="FeedbackSubject"/>
                     </div>
                     <div class="form-element">
                         <label for="faculty">Message</label>
                         <!-- <input type="text" style="height: 140px;line-height: 140px;" placeholder="Enter Message"/> -->
-                        <textarea placeholder="Enter message here"></textarea>
+                        <textarea name="feedback_msg"  placeholder="Enter message here" id="FeedbackMsg"></textarea>
                     </div>
-                    
-                    <button>Send</button>
+                    <input type="hidden" name="feedback_email" id="StudentEmail" value="" />
+                    <input type="date" name="today_date" id="emailDate" value="" style="display:none"/>
+                    <input type="hidden" name="student_id" id="student_id" value=""/>
+                    <button type="submit" id="sendMailBtn">Send</button>
         
-                </div>
+                </form>
             </div>
     </div>
     
     <script>
+    
               google.charts.load('current', {
         'packages': ['bar']
       });
@@ -159,13 +158,37 @@
         	
         	var paramCourse = params.get('course');
         	var paramStudentId = params.get('student_id');
-        	$('#headingCourse').append('Student Profile '+paramCourse);
+        	$('#headingCourse').append('Student Profile <br>'+paramCourse);
         	
         	getStudentDetail(paramStudentId);
         	
-        	
+        	getFeedbacks(paramStudentId);
         	
         })
+        
+        function getFeedbacks(studentId){
+        	$.ajax({
+        		url:'feedback',
+        		method:'get',
+        		data:{
+        			student_id:studentId
+        		},
+        		success:function(response){
+        			$('#feedbackSpace').empty();
+        			console.log(response);
+        			for(i=0;i<response.length;i++){
+        				var divStart='<div class="card feedbackcard"><i class="fa-sharp fa-regular fa-comment fa-2x"></i>';
+            			var heading = divStart+'<h4>Subject: '+response[i].subject+' ('+response[i].date+')</h4>';
+            			var message = heading+'<label>Message: '+response[i].message+'</label></div>';
+            			$('#feedbackSpace').append(message);
+        			}
+        			
+        		},
+        		error:function(){
+        			
+        		}
+        	})
+        }
         
         
         function getChartData(paramStudentId){
@@ -208,13 +231,60 @@
         			$('#studentAge').append(response.age);
         			$('#studentEthni').append(response.ethnicity);
         			$('#studentGender').append(response.gender);
+        			$('#studentAttendance').append(response.totalAttendance+" days present");
         			
+        			$('#StudentEmail').val(response.email);
+        			var todayDate = new Date().toISOString().split("T")[0];
+        			$('#emailDate').val(todayDate);
+        			$('#student_id').val(paramStudentId);
         		},
         		error:function(){
         			
         		}
         	})
         }
+        
+        $('#feedbackForm').on('submit',function(e){
+        	e.preventDefault();
+        	var formData = $(this).serialize();
+
+        	if($('#FeedbackMsg').val==""||$('#FeedbackSubject').val()==""||$('#StudentEmail')==""){
+        		Swal.fire(
+        				  'Error occured!',
+        				  'Fill all the inputs or check the email!',
+        				  'error'
+        				)
+        	}else{
+        		$('#sendMailBtn').hide();
+        		$.ajax({
+        			url:'feedback',
+        			type:'post',
+        			data:formData,
+        			success:function(response){
+        				if(response.message=="success"){
+        					Swal.fire(
+        	        				  'Feedback Sent!',
+        	        				  'Feedback has been sent successfully and alerted',
+        	        				  'success'
+        	        				)
+        	        				$('#sendMailBtn').show();
+        					var studentId=$('#student_id').val();
+        					getFeedbacks(studentId);
+        				}else if(response.message=="failed"){
+        					Swal.fire(
+        	        				  'Error occured!',
+        	        				  'There was error sending the mail!',
+        	        				  'error'
+        	        				)
+        	        				$('#sendMailBtn').show();
+        				}
+        			},
+        			error:function(){
+        				
+        			}
+        		})
+        	}
+        })
         
         
     </script>

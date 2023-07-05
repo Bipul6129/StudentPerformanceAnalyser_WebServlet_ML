@@ -160,4 +160,14 @@
 	<url-pattern>/webpages/algoTrigger</url-pattern>
 </servlet-mapping>
 
+<servlet>
+	<servlet-name>FeedBack</servlet-name>
+	<servlet-class>sps_website.control.FeedbackServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>FeedBack</servlet-name>
+	<url-pattern>/webpages/feedback</url-pattern>
+</servlet-mapping>
+
+
 </web-app>

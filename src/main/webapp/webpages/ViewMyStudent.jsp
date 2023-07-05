@@ -26,6 +26,7 @@
 	                <tr>
 	                    <th>Sno.</th>
 	                    <th>Name</th>
+	                    <th>Email</th>
 	                    <th>Age</th>
 	                    <th>Gender</th>
 

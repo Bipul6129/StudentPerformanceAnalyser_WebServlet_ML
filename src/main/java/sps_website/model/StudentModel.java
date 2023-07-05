@@ -9,7 +9,23 @@ public class StudentModel {
 	private String studentStatus;
 	private int courseId;
 	private int attendanceStatus;
+	private String totalAttendance;
+	private String email;
 	
+	
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getTotalAttendance() {
+		return totalAttendance;
+	}
+	public void setTotalAttendance(String totalAttendance) {
+		this.totalAttendance = totalAttendance;
+	}
 	public int getAttendanceStatus() {
 		return attendanceStatus;
 	}
@@ -65,7 +81,7 @@ public class StudentModel {
 	}
 	
 	public StudentModel(int studentId, String studentName, int age, String ethnicity, String gender,
-			String studentStatus,int courseId) {
+			String studentStatus,int courseId,String email) {
 		super();
 		this.studentId = studentId;
 		this.studentName = studentName;
@@ -74,6 +90,7 @@ public class StudentModel {
 		this.gender = gender;
 		this.studentStatus = studentStatus;
 		this.courseId = courseId;
+		this.email=email;
 	}
 	
 	

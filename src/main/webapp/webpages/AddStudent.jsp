@@ -23,6 +23,10 @@
                         <td><input name="studentName" id="studentName" type="text" placeholder="Enter Name of Student"/></td>
                     </tr>
                     <tr>
+                        <td><label for="emailOfStudent">Email of student</label></td>
+                        <td><input name="studentEmail" id="studentEmail" type="text" placeholder="Enter Email of Student"/></td>
+                    </tr>
+                    <tr>
                         <td><label for="nameOfCollege">Select Course</label></td>
                         <td><select name="courseSelect" id="courseSelect"></select></td>
                     </tr>

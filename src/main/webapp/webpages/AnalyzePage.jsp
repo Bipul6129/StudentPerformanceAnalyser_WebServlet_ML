@@ -38,7 +38,18 @@
 		.selected{
 			background-color:lightgreen
 		}
-		
+		#resultSection{
+			background-color:#cc9ded;
+			width:80%;
+			height:140px;
+			border-radius:8px;
+			display:flex;
+			align-items:center;
+			justify-content:center;
+			font-size:24px;
+			color:4c355c;
+			padding:32px;
+		}
 	</style>
 
 </head>
@@ -80,7 +91,9 @@
 				<label class="selectStatus selectOption" >Poor</label>
 			</div>
 		</div>
-		
+		<div id="resultSection">
+			Result is presented here
+		</div>
 		<button id="analyzeBtn">Analyze</button>
 		
 	</div>
@@ -196,6 +209,13 @@
 						data:data,
 						success:function(response){
 							console.log(response);
+							$('#resultSection').empty();
+							var ethnic=$('#ethnicSelect').text();
+							var age=$('#ageSelect').text();
+							var gender=$('#genderSelect').text();
+							var status=$('#statusSelect').text();
+							var string="The "+gender+" student who's age is "+age+" from "+ethnic+" region with "+status+" family status has performance outcome of "+response.message;
+							$('#resultSection').append(string);
 						},
 						error:function(){
 							
