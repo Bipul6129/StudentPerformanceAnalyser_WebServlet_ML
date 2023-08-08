@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-	<%@ include file="reusable_comp/CheckLogin.jsp" %>
+	
 	<%@ include file="reusable_comp/NavBar.jsp" %>
 	<div id="blanker">
 		<div class="center_div">
@@ -58,7 +58,18 @@
                         </div>
                     </div>
             </div>
-            <button id="showpopup">Post FeedBack</button>
+            <%
+            	if(session.getAttribute("user")!=null){
+            %>
+            	<button id="showpopup">Post FeedBack</button>
+            <%
+            	}else{
+            %>	
+            	<button id="showpopup" style="display:none">Post FeedBack</button>
+            <% 	
+            	}
+            %>
+            
 
             <h2>Previous Feedbacks</h2>
             <div id="feedbackSpace" class="carpet" style="padding-top: 0;margin:16px;text-align: start;">
@@ -84,6 +95,7 @@
                     <input type="hidden" name="feedback_email" id="StudentEmail" value="" />
                     <input type="date" name="today_date" id="emailDate" value="" style="display:none"/>
                     <input type="hidden" name="student_id" id="student_id" value=""/>
+                    <input type="hidden" name="course_id" id="course_id" value=""/>
                     <button type="submit" id="sendMailBtn">Send</button>
         
                 </form>
@@ -158,6 +170,10 @@
         	
         	var paramCourse = params.get('course');
         	var paramStudentId = params.get('student_id');
+        	var paramCourse_id = params.get('course_id');
+        	
+        	$('#course_id').val(paramCourse_id);
+        	
         	$('#headingCourse').append('Student Profile <br>'+paramCourse);
         	
         	getStudentDetail(paramStudentId);

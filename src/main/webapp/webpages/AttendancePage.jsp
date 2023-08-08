@@ -76,12 +76,21 @@
 						  'error'
 						)
 			}else{
-				console.log("the date is "+date+" with course "+courseId);
-				const formData = {
-						courseId:courseId,
-						date:date
+				if(courseId==null){
+					Swal.fire(
+							  'Course not selected',
+							  'Please select a course!',
+							  'error'
+							)
+				}else{
+					console.log("the date is "+date+" with course "+courseId);
+					const formData = {
+							courseId:courseId,
+							date:date
+					}
+					getStudents(formData);
 				}
-				getStudents(formData);
+				
 				
 			}
 			

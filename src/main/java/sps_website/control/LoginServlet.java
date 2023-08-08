@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import javax.servlet.http.*;
 
 import sps_website.db.conection.logic.LoginLogic;
+import sps_website.db.conection.logic.SendJsonMessage;
 
 public class LoginServlet extends HttpServlet{
 	/**
@@ -29,6 +30,10 @@ public class LoginServlet extends HttpServlet{
 					out.flush();
 					HttpSession session = req.getSession();
 					session.setAttribute("user",currentUser);
+				}else if(currentUser.getIsAdmin()==1) {
+					SendJsonMessage.sendJson(res, "admincorrect");
+					HttpSession session = req.getSession();
+					session.setAttribute("admin", session);
 				}
 				
 			}else {

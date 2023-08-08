@@ -18,11 +18,16 @@ public class gatherAndTrigger {
 			outcome=predictResult(rootNode,session,model);
 		}else {
 			final String[][] dbData =  getTrainingData();
-			session.setAttribute("rootNode", App.Analyze(dbData));
-			DecisionNode rootNode = (DecisionNode) session.getAttribute("rootNode");
-			outcome=predictResult(rootNode,session,model);
+			if(dbData.length<5) {
+				outcome="notEnough Data";
+			}else {
+				session.setAttribute("rootNode", App.Analyze(dbData));
+				DecisionNode rootNode = (DecisionNode) session.getAttribute("rootNode");
+				outcome=predictResult(rootNode,session,model);
+			}
+			
 		}
-		
+		 
 		return outcome;
 		
 	}

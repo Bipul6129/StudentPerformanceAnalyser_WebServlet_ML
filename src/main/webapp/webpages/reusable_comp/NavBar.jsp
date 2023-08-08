@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="sps_website.model.*"%>
 
 <%
-	if(session.getAttribute("user")==null){
+	if(session.getAttribute("user")==null && session.getAttribute("admin")==null){
 		%>
 	<header id="navbar">
         <div class="logo">
@@ -19,6 +19,9 @@
                 </li>
                 <li>
                     <a href="RegisterPage.jsp">Register</a>
+                </li>
+                <li>
+                	<a href="StudentPortalLogin.jsp">Student Portal</a>
                 </li>
                 
             </ul>
@@ -80,5 +83,33 @@
 		
 		
 		<%
+	}else if(session.getAttribute("admin")!=null){
+		
+		%>
+	<header id="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" style="width:65px;height:65px;margin-top:5px"/>
+        </div>
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+            <div class="logo">
+                <h1>LOGO HERE</h1>
+            </div>
+            <ul>
+                <li>
+                    <a href="/sps_website/webpages/logoutuser" class="">Logout</a>
+                </li>
+            </ul>
+        </nav>
+        <label for="nav_check" class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+ 	</header>
+		
+		
+		<%
 	}
 %>
+

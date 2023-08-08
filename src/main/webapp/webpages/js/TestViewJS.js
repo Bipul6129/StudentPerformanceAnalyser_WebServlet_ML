@@ -74,7 +74,7 @@
 			$("#insertTestForm").on('submit',function(event){
 				event.preventDefault();
 				var selectedCourse = $('#insertTestCourse').val();
-				if($('#testName').val()==""||$('#fullMarks').val()==""||$('#passMarks')==""){
+				if($('#testName').val()==""||$('#fullMarks').val()==""||$('#passMarks')==""||$('#insertTestCourse').val()==null){
 					Swal.fire({
 						  icon: 'error',
 						  title: 'Oops...',
@@ -82,7 +82,7 @@
 						  footer: ''
 						})
 				}else{
-					
+					console.log('im hit')
 					var formData = $(this).serialize();
 					console.log(formData);
 					$.ajax({

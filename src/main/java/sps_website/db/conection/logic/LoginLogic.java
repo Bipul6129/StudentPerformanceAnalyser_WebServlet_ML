@@ -8,9 +8,10 @@ public class LoginLogic {
 	public static UserModel loginCheck(String username,String password) throws ClassNotFoundException, SQLException {
 		UserModel currentUser= null;
 		Connection con = EstablishConnection.getConnection();
-		String query = "select * from user where username=?";
+		String query = "select * from user where username=? and isBlocked=?";
 		PreparedStatement pstm = con.prepareStatement(query);
 		pstm.setString(1,username);
+		pstm.setInt(2, 0);
 		ResultSet set = pstm.executeQuery();
 		
 		if(set.next()) {

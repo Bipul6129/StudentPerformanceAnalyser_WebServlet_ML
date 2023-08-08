@@ -3,5 +3,7 @@
 <%
 	if(session.getAttribute("user")!=null){
 		response.sendRedirect("Home.jsp");
+	}else if(session.getAttribute("admin")!=null){
+		response.sendRedirect("AdminPage.jsp");
 	}
 %>

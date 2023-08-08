@@ -15,7 +15,7 @@ public class FeedbackLogics {
 	public static boolean sendMail(String receiverEmail,String subject,String content) {
 		boolean mailSent=false;
 		final String senderEmail = "bca190619_bipul@achsnepal.edu.np";
-        final String password = "";
+        final String password = "wzmpggjkcwossdak";
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
@@ -50,17 +50,17 @@ public class FeedbackLogics {
 		return mailSent;
 	}
 	
-	public static boolean storeFeedback(String date,String subject,String message,int studentId) throws ClassNotFoundException, SQLException {
+	public static boolean storeFeedback(String date,String subject,String message,int studentId,int subjectId) throws ClassNotFoundException, SQLException {
 		boolean status = false;
 		Connection con = EstablishConnection.getConnection();
-		String query = "insert into feedback(feedback_date,feedback_subject,feedback_msg,student_id) values(?,?,?,?)";
+		String query = "insert into feedback(feedback_date,feedback_subject,feedback_msg,student_id,subject_id) values(?,?,?,?,?)";
 		PreparedStatement pst = con.prepareStatement(query);
 		
 		pst.setString(1,date);
 		pst.setString(2, subject);
 		pst.setString(3,message);
 		pst.setInt(4, studentId);
-		
+		pst.setInt(5, subjectId);
 		int rowAffected = pst.executeUpdate();
 		
 		if(rowAffected>0) {

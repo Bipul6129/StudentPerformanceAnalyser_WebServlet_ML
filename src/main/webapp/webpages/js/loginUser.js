@@ -15,7 +15,7 @@ $(document).ready(function(){
         				data:formData,
         				success:function(response){
         					console.log(response);
-        					if(response.message=="incorrect"){
+        					if(response.message==="incorrect"){
         						Swal.fire({
     								  icon: 'error',
     								  title: 'Oops...',
@@ -23,9 +23,14 @@ $(document).ready(function(){
     								  footer: ''
     								})
     							$("#loginbtn").show();
-        					}else if(response.message=="correct"){
+        					}
+        					if(response.message==="correct"){
         						window.location.href="Home.jsp";
         					}
+        					if(response.message==="admincorrect"){
+								console.log("hit");
+								window.location.href="AdminPage.jsp";
+							}
         				},
         				error:function(){
         					console.log("error occured");

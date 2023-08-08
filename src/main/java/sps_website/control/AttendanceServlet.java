@@ -1,6 +1,5 @@
 package sps_website.control;
 import sps_website.db.conection.logic.*;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;

@@ -20,12 +20,12 @@ public class FeedbackServlet extends HttpServlet{
 		String f_msg = req.getParameter("feedback_msg");
 		String date = req.getParameter("today_date");
 		int studentId = Integer.parseInt(req.getParameter("student_id"));
-		
-		System.out.println(email+" "+f_subject+" "+f_msg+" "+date+" "+studentId);
+		int courseId = Integer.parseInt(req.getParameter("course_id"));
+		System.out.println(email+" "+f_subject+" "+f_msg+" "+date+" "+studentId+" "+courseId);
 		
 		boolean mailSent=FeedbackLogics.sendMail(email, f_subject, f_msg);
 		try {
-			boolean storeFeedback=FeedbackLogics.storeFeedback(date, f_subject, f_msg, studentId);
+			boolean storeFeedback=FeedbackLogics.storeFeedback(date, f_subject, f_msg, studentId,courseId);
 			
 			if(storeFeedback) {
 				if(mailSent) {

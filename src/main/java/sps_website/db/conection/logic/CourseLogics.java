@@ -95,18 +95,22 @@ public class CourseLogics {
 			String deleteStudent = "delete from student where course_id=?";
 			String deleteCourse = "delete from test where course_id=?";
 			String deleteAttendance = "delete from attendance where course_id=?";
+			String deleteFeedback = "delete from feedback where subject_id=?";
 			
+			PreparedStatement pst5 = con.prepareStatement(deleteFeedback);
 			PreparedStatement pst4 = con.prepareStatement(deleteAttendance);
 			PreparedStatement pst3 =con.prepareStatement(deleteCourse);
 			PreparedStatement pst2 = con.prepareStatement(deleteStudent);
 			PreparedStatement pst = con.prepareStatement(query);
 			
+			
 			pst.setInt(1, courseId);
 			pst2.setInt(1, courseId);
 			pst3.setInt(1, courseId);
 			pst4.setInt(1, courseId);
+			pst5.setInt(1, courseId);
 			
-			
+			pst5.executeUpdate();
 			pst3.executeUpdate();
 			pst4.executeUpdate();
 			pst2.executeUpdate();
