@@ -12,29 +12,41 @@ public class gatherAndTrigger {
 
 		String outcome="";
 		HttpSession session = req.getSession();
-		
+
 		if(session.getAttribute("rootNode")!=null) {
 			DecisionNode rootNode = (DecisionNode) session.getAttribute("rootNode");
 			outcome=predictResult(rootNode,session,model);
 		}else {
+			System.out.println("THE SESSION IS NOT SET");
 			final String[][] dbData =  getTrainingData();
 			if(dbData.length<5) {
 				outcome="notEnough Data";
 			}else {
-				session.setAttribute("rootNode", App.Analyze(dbData));
-				DecisionNode rootNode = (DecisionNode) session.getAttribute("rootNode");
+				DecisionNode rootNode = App.Analyze(dbData);
+				session.setAttribute("rootNode",rootNode);
+				
 				outcome=predictResult(rootNode,session,model);
 			}
 			
 		}
-		 
+		
+//		final String[][] dbData =  getTrainingData();
+//		if(dbData.length<5) {
+//			outcome="notEnough Data";
+//		}else {
+//			DecisionNode rootNode = new DecisionNode();
+//			rootNode = App.Analyze(dbData);
+//			outcome=predictResult(rootNode,session,model);
+//			
+//		}
+//		 
 		return outcome;
 		
 	}
 	
 	
 	public static String predictResult(DecisionNode rootNode,HttpSession session,PredictModel model) {
-		rootNode = (DecisionNode) session.getAttribute("rootNode");
+//		rootNode = (DecisionNode) session.getAttribute("rootNode");
 		Map<String,String> input = new HashMap<>();
 		if(input.size()>0) {
 			input.clear();

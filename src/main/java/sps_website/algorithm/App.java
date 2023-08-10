@@ -205,7 +205,7 @@ public class App {
         }
         
         
-        
+        firstTime=0;
         return Treenode;
 
     }
@@ -303,6 +303,7 @@ public class App {
             
         }
         attribute.clear();
+        
         counts.clear();
         return avgGini;
     }

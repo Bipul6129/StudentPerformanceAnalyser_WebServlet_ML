@@ -50,5 +50,6 @@ public class DecisionNode {
     
     public void clearChild() {
     	children.clear();
+    	
     }
 }
