@@ -15,7 +15,7 @@ public class FeedbackLogics {
 	public static boolean sendMail(String receiverEmail,String subject,String content) {
 		boolean mailSent=false;
 		final String senderEmail = "bca190619_bipul@achsnepal.edu.np";
-        final String password = "wzmpggjkcwossdak";
+        final String password = "kdiubtmbuatjigbp";
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
