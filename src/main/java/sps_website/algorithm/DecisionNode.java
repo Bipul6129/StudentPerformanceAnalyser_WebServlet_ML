@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DecisionNode {
-    private String attribute;
+	private String attribute;
     private String classification;
     private Map<String,DecisionNode> children;
     
@@ -43,6 +43,10 @@ public class DecisionNode {
         }
     }
 
+    public Map<String, DecisionNode> getChildren() {
+        return children;
+    }
+
 
     public boolean isLeaf(){
         return children.isEmpty();
@@ -52,4 +56,5 @@ public class DecisionNode {
     	children.clear();
     	
     }
+
 }

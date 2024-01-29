@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SPS</title>
+    <title>SPS-Secondary</title>
 	<%@ include file="reusable_comp/ImportHeaders.jsp" %>
 	<style>
         .card{

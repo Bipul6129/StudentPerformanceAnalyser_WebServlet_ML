@@ -205,7 +205,7 @@ public class App {
         }
         
         
-        firstTime=0;
+        
         return Treenode;
 
     }

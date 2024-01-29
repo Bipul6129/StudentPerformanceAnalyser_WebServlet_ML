@@ -16,6 +16,7 @@ public class gatherAndTrigger {
 		if(session.getAttribute("rootNode")!=null) {
 			DecisionNode rootNode = (DecisionNode) session.getAttribute("rootNode");
 			outcome=predictResult(rootNode,session,model);
+			DecisionTreeGraphviz.thisMain(rootNode);
 		}else {
 			System.out.println("THE SESSION IS NOT SET");
 			final String[][] dbData =  getTrainingData();
@@ -26,6 +27,7 @@ public class gatherAndTrigger {
 				session.setAttribute("rootNode",rootNode);
 				
 				outcome=predictResult(rootNode,session,model);
+				DecisionTreeGraphviz.thisMain(rootNode);
 			}
 			
 		}
